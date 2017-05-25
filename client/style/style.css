@@ -1,0 +1,41 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	
+  background: url("/img/numeros.jpeg");
+}
+.panelStyles{
+	float: right;
+	margin:auto;
+	width:25%;
+	margin-right: 10%;
+	background-color:#A7F6F9;
+	border-radius: 50px 50px 50px 50px;
+	box-shadow: 20px 20px 16px #1F4E26;
+}
+.panel-heading{
+	background-color: #2CCDD4;
+	background: linear-gradient(top, #68b12f, #50911e);
+	border: 1px solid #509111;
+	opacity:0.9;
+	border-radius: 50px 50px 0px 0px;
+}
+.panel-heading h1{
+	color: #ECF6EE;
+	text-shadow: 5px 3px 1px #000000;
+}
+.panel-heading h5{
+	color: #ECF6EE;
+	text-shadow: 5px 3px 1px #000000;
+}
+.container{
+	float: left;
+	width: auto;
+	height:auto;
+}
+.btn-warning{
+	background-color: #0E989E;
+	
+}
