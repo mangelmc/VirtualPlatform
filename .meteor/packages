@@ -30,3 +30,5 @@ twbs:bootstrap
 accounts-facebook
 accounts-twitter
 accounts-google
+fourseven:scss
+materialize:materialize
