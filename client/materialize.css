@@ -19,3 +19,17 @@ src: local('Material Icons'), local('MaterialIcons-Regular'), url(http://fonts.g
 	-webkit-font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
 }
+.panelForm{
+  background:#fff;
+  color: #000;
+  position: fixed;
+  top: 60px;
+  left: 50vw;
+  width: 40vw;
+  height: auto;
+  transition: all .5s;
+  z-index:100;
+  padding:10px;
+  opacity:1;
+  box-shadow:0px 3px 2px #333
+}

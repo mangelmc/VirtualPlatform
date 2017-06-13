@@ -1,0 +1,83 @@
+<template name="registerForm">
+	<form action="" method="POST">
+        <div class="row">
+            <div class="col s11">
+              <legend>Register</legend>
+            </div>
+            <div class="col s1">
+              <a href="" id="close">X</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6">
+	            <div class="input-field"> 
+		            <div class="form-group">
+		              <label class="control-label" for="">Username</label>
+		              <span class="help-block"></span>
+		              <input type="text" class="form-control" name="username" id="" placeholder="username">
+		            </div>
+	          	</div>
+            </div>
+            <div class="col s6">
+	            <div class="input-field"> 
+		            <div class="form-group">
+		              <label class="control-label" for="">email</label>
+		              <span class="help-block"></span>
+		              <input type="text" name="email" class="form-control" id="" placeholder="Email">
+		            </div>
+	          	</div>
+            </div>
+        </div>
+          <div class="row">
+          	<div class="col s6">
+              <div class="input-field"> 
+            	<div class="form-group">
+              	
+              	<select name="country">
+              		<option value="Bolivia">Bolivia</option>
+              		<option value="Argentina">Argentina</option>
+              		<option value="Brazil">Brazil</option>
+              	</select>
+
+            		</div>
+          		</div>
+            </div>
+            <div class="col s6">
+            	<img src="/images/git2.jpg" align="center" >
+            	    
+            </div>
+          </div>
+          <div class="row">
+          	<div class="col s6">
+          		<div class="input-field"> 
+            		<div class="form-group">
+              			<label class="control-label" for="">Password</label>
+              			<span class="help-block"></span>
+              			<input type="password" name="password" class="form-control" id="" placeholder="password">
+            		</div>
+          		</div>
+          	</div>
+          	<div class="col s6">
+          		<div class="input-field"> 
+            		<div class="form-group">
+              			<label class="control-label" for="">Re. Password</label>
+              			<span class="help-block"></span>
+              			<input type="password" name="repassword" class="form-control" id="" placeholder="re. password">
+            		</div>
+          		</div>
+          	</div>
+          </div>
+          <div class="row">
+            <div class="col s4">
+                <button type="submit" class="btn">Crear cuenta</button>
+            </div>
+            <div class="col s4">
+              
+            </div>
+            <div class="col s4">
+                <button type="button" id="return" class="btn">Volver</button>
+              
+            </div>
+          </div>
+        </form>
+</template>
