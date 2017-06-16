@@ -2,17 +2,13 @@
   <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">LOGO</a>
       <ul class="right">
-        <li><a href="#">HOME</a></li>
-        <li><a href="#">CURSOS</a></li>
-        <li><a href="#">SOPORTE</a></li>
-         <li><a href="#">leo  rama </a></li>
-
-        {{#if currentUser}}
+        <li><a href="/">HOME</a></li>
+         {{#if currentUser}}
+        <li><a href="/cursos">CURSOS</a></li>
+       
                 <li><a href="#" id="logout">LOGGOUT {{username}}</a></li>
         {{else}}
                 <li><a href="#" id="login">LOGIN</a></li>
-
-
         {{/if}}
 
       </ul>
@@ -27,24 +23,12 @@
 <div class="row">
   {{>mainModuleLoggin}}
 </div>
+<div style="min-height: 450px;">
+{{> Template.dynamic template=content}}
+ </div> 
+  <div class="row container">
+              <br><h2 class="center-align">NOSOTROS</h2>
 
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">Starter Template</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
-      </div>
-      <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
-      </div>
-      <br><br>
-
-    </div>
-  </div>
-
-
-  <div class="container">
     <div class="section">
 
       <!--   Icon Section   -->
@@ -52,27 +36,27 @@
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center">Speeds up development</h5>
+            <h5 class="center">Acelera el desarrollo</h5>
 
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+            <p class="light">Hicimos la mayor parte del trabajo pesado para que usted pueda proporcionar un estilo por defecto que incorpora nuestros componentes personalizados. Además, hemos refinado animaciones y transiciones para proporcionar una experiencia más suave para los desarrolladores.</p>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
+            <h5 class="center">Experiencia del usuario enfocada</h5>
 
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+            <p class="light">Al utilizar elementos y principios de diseño de materiales, pudimos crear un marco que incorpora componentes y animaciones que proporcionan más retroalimentación a los usuarios. Además, un solo sistema de respuesta subyacente en todas las plataformas permite una experiencia de usuario más unificada.</p>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Easy to work with</h5>
+            <h5 class="center">Fácil de trabajar con</h5>
 
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+            <p class="light">Hemos proporcionado documentación detallada, así como ejemplos de código específicos para ayudar a los nuevos usuarios a empezar. También estamos siempre abiertos a la retroalimentación y podemos responder a cualquier pregunta que un usuario pueda tener sobre Materialize.</p>
           </div>
         </div>
       </div>
@@ -85,41 +69,32 @@
     </div>
   </div>
 
-  <footer class="page-footer orange">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
+  <div class="footer-copyright">
+  <footer class="page-footer orange">     
+      <center>
+        Made by <a class="orange-text text-lighten-3" href="https://github.com/miguelborda/VirtualPlatform.git">Miguel Borda - Leonardo Huarachi</a>  
+      </center>
+      <br>   
   </footer>
+</div>
 	
 </template>
+<template name="home">
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">BIENVENIDO AL SISTEMA DE CURSOS ONLINE....!</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Donde encontrara una gama de distintos cursos</h5>
+       
+      </div>
+      <div class="row center">
+        <img src="/image/curso_enlinea.jpg" style="height: ">
+      </div>
+      <br><br>
 
+    </div>
+  </div>
+
+
+</template>

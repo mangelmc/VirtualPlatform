@@ -1,0 +1,119 @@
+<template name="cursos">
+	{{#if currentUser}}
+	<div class="col s8 col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="col m3">
+        	
+        </div>
+        <div class="col m6" >
+        	<div class="container">
+	    <div class="row">
+	        <div class="col m10 offset-m1 s12">
+	            <h2 class="center-align">NUEVO CURSO</h2>
+	            <div class="row">
+	                <form class="col s10" method="POST" id="formcrearc">
+	                    <div class="row">
+		                     <div class="input-field col s12">
+		                        <label for="nombre">TITULO</label>
+		                        <input type="text" name="title" required>
+		                    </div>
+		                 </div>
+		                <div class="row">
+		                    <div class="input-field col s12">
+		                        <label for="nombre">DESCRIPCION</label>
+		                        <input type="text" name="desc" required>
+		                    </div>
+		                </div>
+		                
+		                <div class="col m12 center-align">
+		                    <button class="btn waves-effect waves-light" type="submit">CREAR NUEVO</button>
+		                    
+	                	</div>
+                	</form>
+            	</div>
+	        </div>
+	    </div>
+	</div>
+        </div>
+            <div class="box row">
+            <h2 class="center-align">TODOS LOS CURSOS</h2>
+            	<div class="col s12 m1">
+            		
+            	</div>
+            	<div class="cursos col s12 m5">
+            		<div id="" class=" box-icon">
+                    <span><img class="foto" src="/image/php.jpg" style="height:  200px"></span>
+	                </div>
+	                
+	                <div class="info">
+	                    <h4 class="text-center">PHP 5.6</h4>
+	                    <div class="rectangle_hidden">
+	                        <div class="container_curso"> 
+	                            <p>PHP es un lenguaje deprogramacion  backend </p>
+	                        </div>
+	                    </div>
+	                             <button id="eliminarcurso" type="button" class="btn btn-info" >Eliminar Curso</button>
+	                           
+	                            <button type="button" class="btn btn-info" >Tomar este curso</button>
+	                        
+	                </div>
+            	</div>
+            	<div class="col s12 m1">
+            		
+            	</div>
+            	<div class="cursos col s12 m5">
+            		<div id="cursos" class="cursos box-icon">
+                    <span><img class="foto" src="/image/laravel.png" style="height: 200px"></span>
+	                </div>
+	                
+	                <div class="info">
+	                    <h4 class="text-center">LARAVEL 5.4</h4>
+	                    <div class="rectangle_hidden">
+	                        <div class="container_curso"> 
+	                            <p>LARAVEL ES un framework php </p>
+	                        </div>
+	                    </div>
+	                          
+                            <button id="eliminarcurso" type="button" class="btn btn-info" >Eliminar Curso</button>
+                           
+                            <button type="button" class="btn btn-info" >Tomar este curso</button>
+	                </div>
+            	</div>
+            	{{#each listCursos}}
+            		{{>curso}}
+            	{{/each}}
+                	
+            </div>
+    </div>
+  {{else}}
+<p>Solo sdisponible para usuarios registrados.....!</p>
+{{/if}}
+</template>
+<template name="curso">
+	<div class="col s12 m1">
+            		
+    	</div>
+    	<div class=" col s12 m5">
+    		<div id="" class="cursos box-icon">
+            <span><img class="foto" src="/image/laravel.png" style="height: 200px"></span>
+            </div>
+            
+            <div class="info">
+                <h4 class="text-center">{{titulo}}</h4>
+                <div class="rectangle_hidden">
+                    <div class="container_curso"> 
+                        <p>{{descripcion}}</p>
+                    </div>
+                </div>
+                 <a href="/cursos/?id={{_id}}">VER CURSO</a> <br>    
+                    <button id="eliminarcurso" type="button" class="btn btn-info" >Eliminar Curso</button>
+                   
+                    <button type="button" class="btn btn-info" >Tomar este curso</button>
+            </div>
+    	</div>
+
+</template>
+
+<template name="material">
+
+
+</template>
