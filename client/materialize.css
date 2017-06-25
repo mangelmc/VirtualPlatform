@@ -30,6 +30,6 @@ src: local('Material Icons'), local('MaterialIcons-Regular'), url(http://fonts.g
   transition: all .5s;
   z-index:100;
   padding:10px;
-  opacity:1;
+  /*opacity:1;*/
   box-shadow:0px 3px 2px #333
 }

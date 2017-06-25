@@ -1,0 +1,172 @@
+<template name="cursos">
+{{#if currentUser}}
+	<div class="row">
+	{{#if isInRole 'easier,admin'}}
+		{{> facilitador}}
+    {{/if}}
+    {{#if isInRole 'student'}}
+		<div class="row">
+			<div class="s12">
+				<h3 class="center">MIS CURSOS</h3>
+			</div>
+			{{#if readyCursos}}
+		        	{{#each listMiCursos}}
+		        		{{> itemCurso}}
+		        	{{else}}
+		        	<div class="row container">
+	    		    	<div class="col s12 m6">
+	    		    		<center><div class="card blue-grey darken-1">
+	    		    			<div class="card-content white-text">
+	    		    				<span class="white-text">NO HAS TOMADO NINGUN CURSO</span>
+	    		    			</div>    		    			
+	    		    		</div></center>
+	    		    	</div>
+	    			</div> 
+		        	{{/each}}
+		   	{{else}}
+		   		<p>Loading......</p>
+	    	{{/if}}
+	    	
+    	</div>
+    {{/if}}
+        <div class="row">
+        	<h3 class="center-align">TODOS LOS CURSOS</h3>
+        	{{#if readyCursos}}
+	        	{{#each listCursos}}
+	        		{{> itemCurso}}
+	        	{{else}}
+	        	<div class="row container">
+	    		    	<div class="col s12 m6">
+	    		    		<div class="card blue-grey darken-1">
+	    		    			<div class="card-content white-text">
+	    		    				<span class="center">NO HAY CURSOS DISPONIBLES.....</span>
+	    		    			</div>	    		    			
+	    		    		</div>
+	    		    	</div>
+	    		</div> 
+	        	{{/each}}
+	    	{{else}}	
+	    	<div class="row container">
+	    		    	<div class="col s12 m6">
+	    		    		<div class="card blue-grey darken-1">
+	    		    			<div class="card-content white-text">
+	    		    				<span class="white-text">Loading Data .......</span>
+	    		    			</div>	    		    			
+	    		    		</div>
+	    		    	</div>
+	    		    </div>    
+            {{/if}}
+        </div>
+    </div>
+    
+{{else}}
+	<p>Solo disponible para usuarios registrados.....!</p>
+{{/if}}
+
+</template>
+<template name="itemCurso">
+	<div class="col s12 m1">
+            		
+	</div>
+	<div class=" col s12 m5">
+		<div id="" class="cursos box-icon">
+        	<span><img class="foto" src="/image/laravel.png" style="height: 200px"></span>
+        </div>
+        
+        <div class="info">
+            <h4 class="text-center">{{titulo}}</h4>
+            <div class="rectangle_hidden">
+                <div class="container_curso"> 
+                    <p>{{descripcion}}</p>
+                </div>
+            </div>
+            
+            {{#if isInRole 'easier,admin'}}
+            <button type="button" class="btn curso" >VER CURSO</button>    
+            <button type="button" class="btn btn-info elicurso" >Eliminar</button>
+            {{else}} 
+	            {{#if ifMiembro}}
+	            <button type="button" class="btn curso" >VER CURSO</button> <br><br>  
+	            {{else}}
+	            <button type="button" class="btn tomarc" >Tomar este curso</button>
+	            {{/if}}
+            {{/if}}
+        </div>
+	</div>
+
+</template>
+
+<template name="curso">
+<div class="row">
+	{{#each getCurso}}
+		<h3 class="center">{{titulo}}</h3>
+	{{/each}}
+	<div class="col m6 s12">
+		{{> material}}
+	</div>
+	<div class="col m6 s12">
+		{{> preguntas}}
+	</div>
+</div>
+</template>
+
+<template name="material">
+<div class="" style="border: solid 1px grey ;padding: 2%;">	
+	<h6 class="card-title">Ordenar por : </h6>
+	<button type="button" class="btn waves-effect waves-teal btn-flat">Prioridad</button>
+	<button type="button" class="btn waves-effect waves-teal btn-flat">Nuevos</button>
+	<div class="row " style="border: solid 1px grey ;padding: 2%;">
+		<div class="col m4 s12" style="height: 100%">
+			<div class="card-panel teal">
+				<span class="white-text">Aca va una imagen de descripcion</span>
+			</div>
+		</div>
+		<div class="col s12 m8">
+			<h5 class="text-center">Material # 1</h5>
+			<a href="#">Archivos del grupo</a> | <a href="#">chat</a>
+			<h6 class="text-center">Aprende las nociones basica de programacion</h6>
+		</div>
+	</div>
+</div>
+</template>
+
+<template name="preguntas">
+<div class="" style="border: solid 1px gray ; padding: 2%;">
+	<form action="" method="POST">
+		<div class="input-field"> 
+			<div class="form-group" id="">
+				<label class="control-label" for="">Escribe tu pregunta</label>
+				<span class="help-block"></span>
+				<input type="text" class="form-control" id="" required>
+			</div>
+		</div>
+	</form>
+	<div class="center">
+		<button type="button" class="btn waves-effect waves-light btn-flat"><i class="mdi-content-send right"></i>Mejores</button>
+		<button type="button" class="btn waves-effect waves-light btn-flat"><i class="mdi-content-send right"></i>Nuevos</button>
+		<button type="button" class="btn waves-effect waves-light btn-flat"><i class="mdi-content-send right"></i>No Resueltos</button>
+	</div>	
+	<div class="" style="border: solid 1px grey ;padding: 2%;">
+	<div class="row">
+		<div class="col s12 m8">
+			<h5 class="text-center">Aca va la pregunta hecha por?</h5>
+			
+		</div>
+		<div class="col m4 s12" style="height: 100%">
+			<div class="card-panel teal">
+				<span class="white-text">Aca va el avatar</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col m6 s12 center">
+			<a href="#">N respuestas </a>
+		</div>
+		<div class="col m6 s12 center">
+			<span>Puntaje y algo mas</span>
+		</div>
+	</div>	
+	</div>
+	
+</div>	
+</template>
