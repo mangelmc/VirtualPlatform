@@ -16,6 +16,19 @@ var cursosSchema =new SimpleSchema({
     }
 });
 CURSOS.attachSchema(cursosSchema);
+INTEGRANTES = new Mongo.Collection('integrantes');
+
+var integrantesSchema =new SimpleSchema({
+    
+    idCur : {
+        type:String,
+    },
+    idUs : {
+        type : String
+    },
+});
+INTEGRANTES.attachSchema(integrantesSchema);
+
 MATERIAL = new Mongo.Collection('material');
 
 var materialSchema =new SimpleSchema({
@@ -25,25 +38,66 @@ var materialSchema =new SimpleSchema({
     },
     descripcion : {
         type : String
-    }
+    },
+    idCur : {
+        type : String
+    }, 
 });
 MATERIAL.attachSchema(materialSchema);
 
-CUESTIONARIOS = new Mongo.Collection('cuestionarios');
+MENSAJES = new Mongo.Collection('mensajes');
 
-var cuestionariosSchema =new SimpleSchema({
+var mensajesSchema =new SimpleSchema({
     
-    titulo : {
+    idUs : {
         type:String,
     },
-    pregunta : {
+    texto : {
         type : String
     },
-    respuesta : {
+    idMat : {
         type : String
-    },
-    totalResp : {
-        type : Number
     }
 });
-CUESTIONARIOS.attachSchema(cuestionariosSchema);
+
+MENSAJES.attachSchema(mensajesSchema);
+
+PREGUNTAS = new Mongo.Collection('preguntas');
+
+var preguntasSchema =new SimpleSchema({
+    
+    texto : {
+        type:String,
+    },
+    idCur : {
+        type : String
+    },
+    idUs : {
+        type : String
+    },
+    puntos : {
+        type : Number
+    }
+    
+});
+PREGUNTAS.attachSchema(preguntasSchema);
+
+RESPUESTAS = new Mongo.Collection('respuestas');
+
+var respuestasSchema =new SimpleSchema({
+    
+    texto : {
+        type:String,
+    },
+    idUs : {
+        type : String
+    },
+    idPre: {
+        type : String
+    },
+    puntos : {
+        type : Number
+    }
+    
+});
+RESPUESTAS.attachSchema(respuestasSchema);
