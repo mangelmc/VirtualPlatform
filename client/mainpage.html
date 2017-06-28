@@ -1,29 +1,49 @@
 <template name="mainpage">
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">LOGO</a>
-      <ul class="right">
+<!--<div class="navbar-fixed"></div>-->
+ 
+  
+  <nav class=" indigo lighten-1" role="navigation">
+    <div class="nav-wrapper container ">
+    <a id="logo-container" href="#" class="brand-logo">LOGO</a>
+      <ul class="right hide-on-med-and-down">
         <li><a href="/">HOME</a></li>
          {{#if currentUser}}
             {{#if isInRole 'admin,student,easier'}}
              <li><a href="/cursos">CURSOS</a></li>
             {{/if}}
+            <li><a class='logout' href='' >{{currentUser.username}}</a></li>
             
-            <li><a href="#" id="logout">LOGOUT {{username}}</a></li>
         {{else}}
                 <li><a href="#" id="login">LOGIN</a></li>
         {{/if}}
 
       </ul>
-
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
+        <li><a href="/">HOME</a></li>
+         {{#if currentUser}}
+            {{#if isInRole 'admin,student,easier'}}
+             <li><a href="/cursos">CURSOS</a></li>
+            {{/if}}
+            <li><a class='logout' href='' >{{currentUser.username}}</a></li>
+            
+        {{else}}
+                <li><a href="#" id="login">LOGIN</a></li>
+        {{/if}}
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>  
     </div>
+    
   </nav>
 
+<div class="panelLogout" style="display: none;">
+      <ul>
+        <li class="btn-flat"><a href="" id="logout">Cerrar Sesion</a></li><br>
+        <li class="btn-flat" style="width: 100%"><a href="">Algo</a></li>
+      </ul>
+    </div>
 <div class="row">
   {{>mainModuleLoggin}}
+  
 </div>
   
   
@@ -37,7 +57,9 @@
   {{> Template.dynamic template=content}} 
  </div> 
   <div class="row container">
-              <br><h2 class="center-align">NOSOTROS</h2>
+    
+     
+     <br><h2 class="center-align">NOSOTROS</h2>
 
     <div class="section">
 
