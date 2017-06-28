@@ -15,14 +15,15 @@ Template.loginForm.events({
 				alert('Usuario o contraseña incorrectos...!');
 				
 			}else{
-				
+				FlowRouter.go('/cursos');
 				$(".panelForm").fadeOut('slow');
 			}
 		});
 		//$(".panelForm").css("opacity",0);
 		e.target.user.value='';e.target.password.value='';
-		FlowRouter.go('/cursos');
+		
 		return false;
 	}
+	
  
 });

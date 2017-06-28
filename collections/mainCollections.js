@@ -32,8 +32,7 @@ INTEGRANTES.attachSchema(integrantesSchema);
 MATERIAL = new Mongo.Collection('material');
 
 var materialSchema =new SimpleSchema({
-    
-    titulo : {
+    tema : {
         type:String,
     },
     descripcion : {

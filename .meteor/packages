@@ -21,20 +21,23 @@ shell-server@0.2.3            # Server-side component of the `meteor shell` comm
 #insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
 jquery
 
+#rutas
 kadira:flow-router
 kadira:blaze-layout
 
-accounts-password
-accounts-ui
-#ian:accounts-ui-bootstrap-3
-
-aldeed:collection2
-
-alanning:roles
-
-#twbs:bootstrap
+#cuentas
 accounts-facebook
 accounts-twitter
 accounts-google
+accounts-password
+accounts-ui
+
+#colecciones
+aldeed:collection2
+
+#roles
+alanning:roles
+
+#estilos
 fourseven:scss
 materialize:materialize
