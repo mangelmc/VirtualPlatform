@@ -14,7 +14,7 @@
 		
 	<div class="row" style="border: solid 1px grey ;padding: 2%;">
 		{{#each listMensajes}}
-			{{> mensaje}}
+			{{> mensaje idUs=idUs idMat=idMat _id=_id texto=texto username=userMens.username}}
 		{{else}}
 			<p>No hay mensajes para mostrar</p>
 		{{/each}}

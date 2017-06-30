@@ -22,8 +22,10 @@ Template.chat.helpers({
 	namChat : function () {
 		//console.log(nameChat);
 		return nameChat.get();
-
 	},
+	userMens : function(){
+		return Meteor.users.findOne({_id: this.idUs});;
+	}
 
 });
 Template.mensaje.helpers({
