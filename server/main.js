@@ -111,7 +111,17 @@ Meteor.startup(() => {
         }]
     }
   });
-  Meteor.publish("getMensajes",function(idMat){
-    return MENSAJES.find({idMat:idMat});
+  Meteor.publishComposite("getMensajes",function(idMat){
+    return {
+      find(){
+        return MENSAJES.find({idMat:idMat});
+      },
+      children:[{
+          find(mensajes){
+            return Meteor.users.find({_id:mensajes.idUs},{fields:{profile:1,username:1}});
+          }          
+        }]
+    }
   });
+  
 });
