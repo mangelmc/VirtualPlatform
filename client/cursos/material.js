@@ -3,6 +3,7 @@ import { Template} from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import './material.html';
 var orderMaterial = new ReactiveVar('prioridad');
+nameChat = new ReactiveVar('');
 Template.itemMaterial.onRendered(function(){
 	
 	$('.modal').modal();
@@ -53,6 +54,8 @@ Template.itemMaterial.events({
         //alert('verchat');
         if ($('#asklayout').css('display')=='block') {
         	FlowRouter.setQueryParams({idMat:this._id});
+        	nameChat.set(this.tema);
+        	//onsole.log(nameChat);
 	        $('#asklayout').slideUp('fast',function(){
 	        	$('#chatlayout').slideDown('slow');
 	        	$('body').animate({scrollTop: 60}, 1500);

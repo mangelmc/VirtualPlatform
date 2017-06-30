@@ -1,7 +1,7 @@
 <template name="chat">
 <div class="" style="border: solid 1px gray ; padding: 2%;">
-	<h5 class="center">Chat Online <a class="right" id="closechat" href=""><i class="material-icons grey-text">close</i></a></h5>
-	<form action="" method="POST">
+	<h5 class="center">Chat Online  {{namChat}}<a class="right" id="closechat" href=""><i class="material-icons grey-text">close</i></a></h5>
+	<form action="" method="POST" id="chatear">
 		<div class="input-field"> 
 			<div class="form-group row" id="">
 				<i class="medium material-icons prefix">chat</i>
@@ -12,32 +12,35 @@
 		</div>
 	</form>
 		
-	<div class="" style="border: solid 1px grey ;padding: 2%;">
-		<div class="row">
-			<div class="col m10 s12">
-				<div class="card-panel red">
-					<span class="white-text">aqui un mensaje mio</span>
-				</div>
-			</div>
+	<div class="row" style="border: solid 1px grey ;padding: 2%;">
+		{{#each listMensajes}}
+			{{> mensaje}}
+		{{else}}
+			<p>No hay mensajes para mostrar</p>
+		{{/each}}
 		
-			<div class="col m10 offset-m2 s12">
-				<div class="card-panel teal">
-					<span class="white-text">y aca otro de alguien mas</span>
-				</div>
-			</div>
-			<div class="col m10 s12">
-				<div class="card-panel red">
-					<span class="white-text">aqui un mensaje de uevo mio</span>
-				</div>
-			</div>
-			<div class="col m10 offset-m2 s12">
-				<div class="card-panel teal">
-					<span class="white-text"> y aca otro de otro gil</span>
-				</div>
-			</div>	
-		</div>
-	
 	</div>
 </div>
 	
+</template>
+<template name="mensaje">
+	{{#if idMi}}
+	<div class="col m10 offset-m2 s12">
+		<div class="card-panel light-blue darken-3 white-text">
+			<a href="" class="elimensaje"><span class="right"><i class="material-icons white-text">close</i></span></a>
+			<span class="">{{username}} > {{texto}}</span>
+		</div>
+
+	</div>	
+	{{else}}
+	<div class="col m11 s12">
+		<div class="card-panel blue-grey">
+			
+			<span class="white-text">{{username}} > {{texto}}</span>
+			{{#if isInRole 'admin,easier'}}
+			<a href="" class="elimensaje"><span class="right"><i class="material-icons white-text">close</i></span></a>
+			{{/if}}
+		</div>
+	</div>
+	{{/if}}
 </template>

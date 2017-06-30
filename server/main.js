@@ -50,7 +50,14 @@ Meteor.startup(() => {
     eliRespuesta : function(idResp){
       RESPUESTAS.remove({_id : idResp});
     },
+    insertMensaje : function(obj){
+      MENSAJES.insert(obj);
+    },
+    eliMensaje : function(idMen){
+      MENSAJES.remove({_id : idMen});
+    },
   });
+
 
 
   //publicaciones
@@ -103,5 +110,8 @@ Meteor.startup(() => {
           }          
         }]
     }
+  });
+  Meteor.publish("getMensajes",function(idMat){
+    return MENSAJES.find({idMat:idMat});
   });
 });
