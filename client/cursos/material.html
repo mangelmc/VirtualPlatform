@@ -1,10 +1,10 @@
 <template name="material">
 {{#if currentUser}}
 <div class="" style="border: solid 1px grey ;padding: 2%;">	
-	{{#if isInRole 'easier'}}
-	<div class="row deep-purple lighten-5">
+	{{#if isInRole 'admin,easier'}}
+	<div class="row deep-purple lighten-5" style="padding: 1%">
 		<form action="" method="POST" id="addmaterial">
-			<legend>Agregar nuevo Material</legend>
+			<h4 class="center grey-text">Agregar Material</h4>
 			<div class="input-field"> 
 				<div class="form-group">
 					<label class="control-label" for="">Tema</label>
@@ -61,8 +61,10 @@
 		{{#if isInRole 'admin,easier'}}
 		<div>
 			<!-- Modal Trigger -->
-			<button data-target="{{_id}}m" class="waves-effect waves-light btn-flat">Editar Material</button>
-		  	<button class="eliminarmaterial btn-flat">Eliminar</button>
+			<div class="row">
+			<button data-target="{{_id}}m" class="waves-effect waves-light btn-flat"><i class="material-icons left">edit</i>Editar Material</button>
+		  	<button class="eliminarmaterial btn-flat"><i class="material-icons left">close</i>Eliminar</button>
+		  	</div>
 		  	<!-- Modal Structure -->
 		  	<div id="{{_id}}m" class="modal">
 		  		<h5 class="center">Edicion de Material</h5>

@@ -62,7 +62,7 @@ Template.itemCurso.helpers({
 Template.itemCurso.events({
     'click .curso': function (e) {
         //console.log(this);        
-        FlowRouter.go('/curso',1,{idCur:this._id,idUs:Accounts.user()._id});
+        FlowRouter.go('/curso',1,{idCur:this._id,idOwn:this.owner});
 
     },
     'click .tomarc': function(e){

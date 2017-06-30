@@ -52,14 +52,18 @@ Template.itemMaterial.events({
 	'click .verchat': function () {
         //alert('verchat');
         if ($('#asklayout').css('display')=='block') {
+        	FlowRouter.setQueryParams({idMat:this._id});
 	        $('#asklayout').slideUp('fast',function(){
 	        	$('#chatlayout').slideDown('slow');
+	        	$('body').animate({scrollTop: 60}, 1500);
+	        	$('#chatinput').focus();
 	        });
         }else{
         	$('#chatlayout').slideUp('fast',function(){
 	        	$('#asklayout').slideDown('slow');
 	        });
         }
+        return false;
     },
     
 	'submit .editarmaterial': function (e) {
