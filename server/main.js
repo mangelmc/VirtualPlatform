@@ -36,8 +36,23 @@ Meteor.startup(() => {
     },
     eliMaterial : function (id){
       MATERIAL.remove({_id:id});
-    }
+    },
+    insertPregunta : function(obj){
+      PREGUNTAS.insert(obj);
+    },
+    eliPregunta : function(id){
+      PREGUNTAS.remove({_id : id});
+      RESPUESTAS.remove({idPre : id });
+    },
+    insertRespuesta : function(obj){
+      RESPUESTAS.insert(obj);
+    },
+    eliRespuesta : function(idResp){
+      RESPUESTAS.remove({_id : idResp});
+    },
   });
+
+
   //publicaciones
   Meteor.publish('getCursos', function () {
     if (Roles.userIsInRole(this.userId, ['easier'])) {
@@ -54,5 +69,39 @@ Meteor.startup(() => {
   });
   Meteor.publish("getMaterial",function(idC){
     return MATERIAL.find({idCur:idC});
+  });
+
+  /* Esta es una prueba sin composite....
+      si que es mas facil  
+  Meteor.publish("getPreguntas",function(idC){
+    return PREGUNTAS.find({idCur:idC});
+  });*/
+  Meteor.publishComposite("getPreguntas",function(idC){
+    return {
+      find(){
+        return PREGUNTAS.find({idCur:idC});
+      },
+      children:[{
+          find(preguntas){
+            return Meteor.users.find({_id:preguntas.idUs});
+          }          
+        }]
+    }
+  });
+  /*
+  Meteor.publish("getRespuestas",function(idC){
+    return RESPUESTAS.find({idCur:idC});
+  });*/
+  Meteor.publishComposite("getRespuestas",function(idC){
+    return {
+      find(){
+        return RESPUESTAS.find({idCur:idC});
+      },
+      children:[{
+          find(respuestas){
+            return Meteor.users.find({_id:respuestas.idUs},{fields:{profile:1,username:1}});
+          }          
+        }]
+    }
   });
 });

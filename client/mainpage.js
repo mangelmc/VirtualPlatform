@@ -27,7 +27,8 @@ Template.mainpage.events({
 		//$(".panelForm").css("opacity",1);
 		$(".panelForm").fadeIn('slow');
 	},
-	"click #logout" : function(){
+	"click #logout" : function(e){
+		e.preventDefault();
 		Meteor.logout();
 		$(".panelLogout").fadeOut('slow');
 		FlowRouter.go('/')

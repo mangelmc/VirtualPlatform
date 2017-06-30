@@ -94,6 +94,9 @@ var respuestasSchema =new SimpleSchema({
     idPre: {
         type : String
     },
+    idCur : {
+        type : String
+    },
     puntos : {
         type : Number
     }

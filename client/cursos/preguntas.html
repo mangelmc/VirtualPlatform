@@ -1,63 +1,101 @@
 <template name="preguntas">
 <div class="" style="border: solid 1px gray ; padding: 2%;">
-		<h5 class="center">Consultas</h5>
+	<h5 class="center">Consultas</h5>
 
-	<form action="" method="POST">
+	<form action="" method="POST" id="preguntar">
 		<div class="input-field"> 
 			<div class="form-group" id="">
 				<label class="control-label" for="">Escribe tu pregunta</label>
 				<span class="help-block"></span>
-				<input type="text" class="form-control" id="" required>
+				<input type="text" name="texto" class="form-control" id="" required>
 			</div>
 		</div>
 	</form>
+
 	<div class="center">
-		<button type="button" class="btn waves-effect waves-light btn-flat">Mejores</button>
-		<button type="button" class="btn waves-effect waves-light btn-flat">Nuevos</button>
-		<button type="button" class="btn waves-effect waves-light btn-flat">No Resueltos</button>
+		<button type="button" class="mejores obtn waves-effect waves-light btn-flat">Mejores</button>
+		<button type="button" class="nuevos btn waves-effect waves-light btn-flat">Nuevos</button>
+		<button type="button" class="noresueltos btn waves-effect waves-light btn-flat">No Resueltos</button>
 	</div>	
-	<div class="" style="border: solid 1px grey ;padding: 2%;">
-	<div class="row">
-		<div class="col s12 m8">
-			<h5 class="text-center">Por que la pregunta?</h5>
-			
-		</div>
-		<div class="col m4 s12" style="height: 100%">
-			<div class="card-panel teal">
-				<span class="white-text">Aca va el avatar</span>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col m6 s12 center">
-			<a href="" class="verrespuestas">N respuestas </a>
-		</div>
-		<div class="col m6 s12 center">
-			<span>Puntaje y algo mas</span>
-		</div>
-	</div>
-	<div class="row respuestas" style="border: solid 1px grey ;">
-		<div class="col m10 s12">
-			<div class="card-panel red">
-				<span class="white-text">aqui un mensaje deotro</span>
-			</div>
-		</div>
-		<div class="col m2 s12" style="border: solid 1px grey ;padding: 2%;">
-			
-			    <a class="btn-floating btn-large red">
-			      <i class="medium material-icons">grade</i>
-			    </a>
-			    
-  			
-		</div>
-		<div class="col m10 offset-m2 s12">
-			<div class="card-panel teal">
-				<span class="white-text">y aca otro de alguien mas</span>
-			</div>
-		</div>
-			
-	</div>	
-	</div>
-	
+	{{#each listPreguntas}}
+		{{> itemPreguntas username=userPreg.username texto=texto puntos=puntos idCur=idCur idUs=idUs _id=_id}}
+	{{else}}
+		<p>NO hay preguntas del Curso</p>
+	{{/each}}
 </div>	
+</template>
+
+<template name="itemPreguntas">
+<div class="yellow lighten-4" style="border: solid 1px grey ;padding: 2%;margin-top: 2px;">
+	{{#if eliPermiso}}
+		<button type="button" class="elipregunta waves-effect waves-teal btn-flat"><i class="material-icons left">close</i>Eliminar</button>
+	{{/if}}	
+	<div class="row ">
+		<div class="col s12 m9 l8 " >
+				<h5 class="green-text ">{{username}} : </h5>	
+				<h5 class="green-text darken-3">{{texto}}</h5>		
+		</div>
+		<div class="col s12 m3 l4 center red" style="padding-top: 2%;">				
+			<img src="./image/usu.png" class="responsive-img white-text" alt="Avatar Image" style="max-height: 90px">
+			<div class="center" ><span>{{username}}</span></div>				
+		</div>
+	</div>
+	<div class="row">
+		<div class="col m6 s12 center">
+			<a href="" class="verrespuestas">Respuestas</a><span> : {{numRespuestas}}</span>
+		</div>
+		<div class="col m6 s12 center">
+			<span>Puntaje : {{puntos}}</span>
+		</div>
+	</div>
+	<!-- Xontenedor de las respuestas-->
+	<div class="row respuestas" id="{{_id}}" style="border: solid 1px grey ;display: none;max-height: 400px;overflow:auto;">
+		<div class="" style="padding : 2%;">
+			<form action="" method="POST" id="" class="responder">
+			<div class="input-field"> 
+				<div class="form-group" id="">
+					<label class="control-label" for="">Escribe tu respuesta</label>
+					<input type="text" name="texto" class="form-control" id="" required>
+				</div>
+			</div>
+			</form>
+		</div>	
+		{{#each listRespuestas}}
+			{{> respuesta _id=_id texto=texto idUs=idUs idPre=idPre idCur=idCur username=userResp.username}}
+		{{else}}
+			<div class="row">
+				<div class="col s12 m6">
+					<div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+							<p>NO hay respuestas</p>
+						</div>						
+					</div>
+				</div>
+			</div>
+		{{/each}}
+			
+	</div>	
+</div>
+</template>
+
+<template name="respuesta">
+	{{#if respYo}}
+	<div class="col m10 offset-m2 s12">
+		<div class="card-panel teal white-text">
+			<a href="" class="elirespuesta"><span class="right"><i class="material-icons white-text">close</i></span></a>
+			<span class="">{{username}} > {{texto}}</span>
+		</div>
+
+	</div>	
+	{{else}}
+	<div class="col m11 s12">
+		<div class="card-panel red">
+			<a href=""><span class="right puntrespuesta"><i class="material-icons white-text">grade</i></span></a>
+			<span class="white-text">{{username}} > {{texto}}</span>
+			{{#if isInRole 'admin,easier'}}
+			<a href="" class="elirespuesta"><span class="right"><i class="material-icons white-text">close</i></span></a>
+			{{/if}}
+		</div>
+	</div>
+	{{/if}}
 </template>
