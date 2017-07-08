@@ -1,0 +1,27 @@
+<template name="det_material">
+<div class="row">
+	
+	<div class="col m6 s12 ">
+		<div class="row orange lighten-4" id="" style="padding: 2%;max-height: 250px;">
+		<ul class="collection with-header">
+	        <li class="collection-header"><h6>Archivos del material<a href="" class="cerrar"><i class="material-icons right">close</i></a></h6></li>
+	        <li class="collection-item"><div>Archivo # N<a href="" class="secondary-content"><i class="material-icons">system_update_alt</i></a></div></li>
+	        <li class="collection-item"><div>Archivo # N<a href="" class="secondary-content"><i class="material-icons">system_update_alt</i></a></div></li>
+	        <li class="collection-item"><div>Archivo # N<a href="" class="secondary-content"><i class="material-icons">system_update_alt</i></a></div></li>
+	        <li class="collection-item"><div>Archivo # N<a href="" class="secondary-content"><i class="material-icons">system_update_alt</i></a></div></li>
+	      </ul>
+		</div>
+		
+		<div style="max-height: 400px;border: solid 1px gray;overflow: auto;">
+			{{> preguntas}}
+		</div>		
+			
+		
+	</div>
+	
+	<div class="col m6 s12" id="chatlayout" style="">	
+		{{> chat}}
+	</div>
+</div>
+</template>
+

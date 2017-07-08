@@ -1,8 +1,8 @@
 Template.chat.events({
-	'click #closechat': function () {
+	/*'click #closechat': function () {
 		$('#chatlayout').slideToggle('slow');
 		$('#asklayout').slideToggle('slow');
-	},
+	},*/
 	'submit #chatear': function (e) {
 		e.preventDefault();
 		obj = {

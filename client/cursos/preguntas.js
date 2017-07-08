@@ -8,7 +8,7 @@ Template.preguntas.events({
 		e.preventDefault();
 		obj = {
 			texto : e.target.texto.value, 
-			idCur : FlowRouter.getQueryParam('idCur'),
+			idCur : FlowRouter.getQueryParam('cur'),
 			idUs : Meteor.user()._id,
 			puntos : 0
 		}
@@ -52,7 +52,7 @@ Template.itemPreguntas.events({
 		e.preventDefault();
 		obj = {
 			texto : e.target.texto.value,
-			idCur : FlowRouter.getQueryParam('idCur'),
+			idCur : FlowRouter.getQueryParam('cur'),
 			idUs : Meteor.user()._id,
 			idPre : this._id,
 			puntos : 0
@@ -75,7 +75,7 @@ Template.itemPreguntas.helpers({
 		return	RESPUESTAS.find({idPre : this._id}).fetch().length;		
 	},
 	eliPermiso : function () {
-		var idOwn = FlowRouter.getQueryParam('idOwn');
+		var idOwn = FlowRouter.getQueryParam('own');
 		var idUsPreg = this.idUs,idUs = Meteor.userId();
 		//console.log(this);
 		if (idOwn==idUs||idUsPreg==idUs||Roles.userIsInRole(idUs, ['admin'])) {

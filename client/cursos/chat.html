@@ -1,6 +1,6 @@
 <template name="chat">
-<div class="" style="border: solid 1px gray ; padding: 2%;">
-	<h5 class="center">Chat Online  {{namChat}}<a class="right" id="closechat" href=""><i class="material-icons grey-text">close</i></a></h5>
+<div class="z-depth-4" style=" padding: 2%;">
+	<h5 class="center">Chat en vivo</h5>
 	<form action="" method="POST" id="chatear">
 		<div class="input-field"> 
 			<div class="form-group row" id="">
@@ -12,7 +12,7 @@
 		</div>
 	</form>
 		
-	<div class="row" style="border: solid 1px grey ;padding: 2%;">
+	<div class="row z-depth-1" style="padding: 2%;max-height: 510px;overflow: auto;">
 		{{#each listMensajes}}
 			{{> mensaje idUs=idUs idMat=idMat _id=_id texto=texto username=userMens.username}}
 		{{else}}

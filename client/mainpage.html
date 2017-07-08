@@ -8,6 +8,9 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="/">HOME</a></li>
          {{#if currentUser}}
+            {{#if isInRole 'admin'}}
+             <li><a href="/usuarios">USUARIOS</a></li>
+            {{/if}}
             {{#if isInRole 'admin,student,easier'}}
              <li><a href="/cursos">CURSOS</a></li>
             {{/if}}
@@ -24,7 +27,7 @@
             {{#if isInRole 'admin,student,easier'}}
              <li><a href="/cursos">CURSOS</a></li>
             {{/if}}
-            <li><a class='logout' href='' >{{currentUser.username}}</a></li>
+            <li><a class='logout ' href='' >{{currentUser.username}}</a></li>
             
         {{else}}
                 <li><a href="#" id="login">LOGIN</a></li>

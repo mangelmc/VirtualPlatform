@@ -62,7 +62,7 @@ Template.itemCurso.helpers({
 Template.itemCurso.events({
     'click .curso': function (e) {
         //console.log(this);        
-        FlowRouter.go('/curso',1,{idCur:this._id,idOwn:this.owner});
+        FlowRouter.go('/curso',1,{cur:this._id,own:this.owner});
 
     },
     'click .tomarc': function(e){
@@ -89,7 +89,7 @@ Template.itemCurso.events({
 
 });
 Template.curso.onCreated(function(){
-    var idCur = FlowRouter.getQueryParam('idCur');
+    var idCur = FlowRouter.getQueryParam('cur');
 
     //console.log(idCur);
 })
