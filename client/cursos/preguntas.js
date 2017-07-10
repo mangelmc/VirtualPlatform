@@ -28,7 +28,8 @@ Template.preguntas.events({
 });
 Template.preguntas.helpers({
 	listPreguntas: function () {
-		return	PREGUNTAS.find().fetch().reverse();
+		var idCur = FlowRouter.getQueryParam('cur');
+		return	PREGUNTAS.find({idCur:idCur}).fetch().reverse();
 	},
 	userPreg :  function () {
 		return	Meteor.users.findOne({_id:this.idUs});

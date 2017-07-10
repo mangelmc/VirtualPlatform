@@ -9,14 +9,7 @@ Template.facilitador.events({
     	var title = e.target.title.value;
     	var desc = e.target.desc.value;
     	//alert(title+desc);
-    	Meteor.call('insertCurso', title,desc, function (error, result) {
-    		if (result) {
-    			console.log('ok insm');
-    		}
-    		if (error) {
-    			console.log('error'+error);
-    		}
-    	});
+    	Meteor.call('insertCurso', title,desc);
     	e.target.title.value = "";
 		e.target.desc.value ="" ; 
     }

@@ -1,18 +1,28 @@
 <template name="chat">
-<div class="z-depth-4" style=" padding: 2%;">
-	<h5 class="center">Chat en vivo</h5>
+<div class="z-depth-4 teal lighten-5 " style=" padding: 2%;">
+	<h5 class="center">Chat en vivo <a href=""><span id="listausers" style="">10 en linea</span></a></h5>
+	<div class="row listausers deep-purple lighten-5 z-depth-4" style="max-height: 250px; position: absolute;right : 3%; display: none;overflow-y: auto;z-index: 25;border-radius: 2px">
+		<ul>
+        <li class="btn-flat">o<a href="" >Usuario x</a></li><br>
+        <li class="btn-flat"><a href="">Usuario x</a></li><br>
+        <li class="btn-flat">o<a href="" >Usuario x</a></li><br>
+        <li class="btn-flat">o<a href="">Usuario x</a></li><br>
+        <li class="btn-flat">o<a href="" >Usuario x</a></li><br>
+        <li class="btn-flat">o<a href="">Usuario x</a></li><br>
+      </ul>
+	</div>
 	<form action="" method="POST" id="chatear">
 		<div class="input-field"> 
 			<div class="form-group row" id="">
 				<i class="medium material-icons prefix">chat</i>
 				<input type="text" name="texto" class="form-control" id="chatinput" required>
-				<label class="control-label" for="">Escribe un mensaje</label>
+				<label class="control-label black-text" for="">Escribe un mensaje</label>
 
 			</div>
 		</div>
 	</form>
 		
-	<div class="row z-depth-1" style="padding: 2%;max-height: 510px;overflow: auto;">
+	<div class="msjcont row z-depth-1 indigo lighten-4" style="padding: 2%;max-height: 510px;overflow: auto;">
 		{{#each listMensajes}}
 			{{> mensaje idUs=idUs idMat=idMat _id=_id texto=texto username=userMens.username}}
 		{{else}}
@@ -28,7 +38,7 @@
 	<div class="col m10 offset-m2 s12">
 		<div class="card-panel light-blue darken-3 white-text">
 			<a href="" class="elimensaje"><span class="right"><i class="material-icons white-text">close</i></span></a>
-			<span class="">{{username}} > {{texto}}</span>
+			<span class=""><b>{{username}} > </b> {{texto}}</span>
 		</div>
 
 	</div>	
@@ -36,7 +46,7 @@
 	<div class="col m11 s12">
 		<div class="card-panel blue-grey">
 			
-			<span class="white-text">{{username}} > {{texto}}</span>
+			<span class="white-text"><b>{{username}} > </b>{{texto}}</span>
 			{{#if isInRole 'admin,easier'}}
 			<a href="" class="elimensaje"><span class="right"><i class="material-icons white-text">close</i></span></a>
 			{{/if}}

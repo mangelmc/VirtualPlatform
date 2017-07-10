@@ -69,7 +69,7 @@ Template.itemMaterial.events({
         return false;*/
     },
     'click .detmaterial': function () {
-    	console.log(this);
+    	//console.log(this);
     	var own = FlowRouter.getQueryParam('own');
     	var cur = FlowRouter.getQueryParam('cur');
     	FlowRouter.go('/det_material',1,{idMat:this._id,cur:cur,own:own});

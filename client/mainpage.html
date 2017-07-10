@@ -13,6 +13,13 @@
             {{/if}}
             {{#if isInRole 'admin,student,easier'}}
              <li><a href="/cursos">CURSOS</a></li>
+            <li><a href="" class="white-text verlistanoti"><span><i class="material-icons white-text left">add_alert</i></span>
+            {{#if contNot}}
+            <span class="new badge" data-badge-caption="">{{contNot}}</span>
+            {{/if}}
+            </a>
+            </li>
+
             {{/if}}
             <li><a class='logout' href='' >{{currentUser.username}}</a></li>
             
@@ -26,17 +33,37 @@
          {{#if currentUser}}
             {{#if isInRole 'admin,student,easier'}}
              <li><a href="/cursos">CURSOS</a></li>
+             <li><a href="" class="verlistanoti"><i class="material-icons white-text">add_alert</i><span class="new badge">4</span></a></li>
             {{/if}}
-            <li><a class='logout ' href='' >{{currentUser.username}}</a></li>
+            <li><a class='logout' href='' >{{currentUser.username}}</a></li>
             
         {{else}}
                 <li><a href="#" id="login">LOGIN</a></li>
         {{/if}}
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>  
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons white-text">menu</i></a>  
     </div>
     
   </nav>
+  <div class="row listanoti deep-purple lighten-5 z-depth-4" style="max-height: 250px;max-width: 350px; position: absolute;right : 10%; overflow-y: auto;z-index: 10;border-radius: 2px;display: none;padding:4px">
+    {{#each listanoti}}
+      {{#if notiVisto}}
+        <div class="row {{_id}} listanot" style="background-color: #4a148c;"  >
+          <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+          <div class="col s2 tooltipped visto" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
+        </div>
+      {{else}}
+        <div class="row {{_id}} listanot" style=""  >
+          <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+        </div>
+      {{/if}}
+    {{else}}
+        <div class="row listanot"  >
+          <div class="col s12 " >No hay notificaciones</div>
+                
+        </div>
+    {{/each}}
+  </div>
 
 <div class="panelLogout scrolltop" style="display: none;">
       <ul>

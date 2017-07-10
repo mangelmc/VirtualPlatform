@@ -10,7 +10,7 @@ Template.cursos.helpers({
         return FlowRouter.subsReady("getCursos");
     },
     listCursos : function(){
-        return CURSOS.find();
+        return CURSOS.find().fetch();
     },
     listMiCursos : function(){
         var user = INTEGRANTES.find({idUs:Meteor.userId()}).fetch();
@@ -95,7 +95,8 @@ Template.curso.onCreated(function(){
 })
 Template.curso.helpers({
     getCurso: function () {
-        return CURSOS.find();
+        var idCur = FlowRouter.getQueryParam('cur');
+        return CURSOS.find({_id:idCur});
     }
 });
 Template.curso.events({

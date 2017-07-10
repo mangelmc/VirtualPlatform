@@ -20,7 +20,8 @@ Template.registerForm.events({
 				"name" : e.target.name.value,
 				"surname" : e.target.surname.value,
 				"carrera" : e.target.carrera.value,
-				"estado" : "activo"
+				"estado" : "online",
+				"bloqueado" : "no"
 				}
 			};
 			
