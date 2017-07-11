@@ -127,7 +127,7 @@ Meteor.startup(() => {
       }
       var points = total/cont;
       points = points.toFixed(2);
-      console.log(points);
+      //console.log(points);
       if (tipo=='preg') {
         PREGUNTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}});
         //console.log(total +'---'+cont );
