@@ -10,9 +10,14 @@ Meteor.startup(() => {
     },
     "insertCurso": function(title,desc){
         if(Meteor.userId()){ 
-            CURSOS.insert({titulo: title,descripcion:desc,owner:this.userId});
-            
-        }
+          var idUs = this.userId;
+            CURSOS.insert({titulo: title,descripcion:desc,owner:idUs},function(err,res){
+              if (res) {
+                //console.log(res);
+                INTEGRANTES.insert({idUs:idUs,idCur:res});
+              }
+            });            
+        }        
     },
     "tomarCurso": function(obj){
         if(Meteor.userId()){ 
@@ -38,11 +43,28 @@ Meteor.startup(() => {
       MATERIAL.remove({_id:id});
     },
     insertPregunta : function(obj){
-      PREGUNTAS.insert(obj);
+      var int = INTEGRANTES.find({idCur:obj.idCur,idUs:{$ne:this.userId}},{fields:{idUs:1}}).fetch();
+      //console.log(int);
+
+      PREGUNTAS.insert(obj,function(error,result){
+        if (result) {
+          NOTIFICACIONES.insert({
+            aviso:'pregunto',idUs:obj.idUs,idPre:result,idCur:obj.idCur},function(error,result){
+              for (var i = 0;i<int.length; i++) {
+                NVISTAS.insert({idNot:result,idUs:int[i].idUs,visto:false});
+              }
+              //console.log(result+error);
+            });
+          
+        }
+      });
     },
     eliPregunta : function(id){
       PREGUNTAS.remove({_id : id});
       RESPUESTAS.remove({idPre : id });
+      var idNot = NOTIFICACIONES.find({idPre:id}).fetch()[0]._id;
+      NOTIFICACIONES.remove({idPre:id});
+        NVISTAS.remove({idNot:idNot});
     },
     insertRespuesta : function(obj){
       RESPUESTAS.insert(obj);
@@ -55,6 +77,15 @@ Meteor.startup(() => {
     },
     eliMensaje : function(idMen){
       MENSAJES.remove({_id : idMen});
+    },
+    getOwn : function(idCur){
+      return CURSOS.find({_id : idCur},{fiels:{own:1}}).fetch()[0].owner;
+      //console.log(own[0].owner);
+    },
+    checkVisto : function(idNot){
+
+      NVISTAS.update({$and:[{idNot:idNot},{idUs:this.userId}]},{$set:{visto:true}});
+      //console.log(own[0].owner);
     },
   });
 
@@ -122,6 +153,44 @@ Meteor.startup(() => {
           }          
         }]
     }
+  });
+  //Hacer reportar spam u ofensas
+  Meteor.publishComposite("getNotificaciones",function(){
+    var int = INTEGRANTES.find({idUs:this.userId}).fetch();
+    var noti ={$and:[{idUs:{$ne:this.userId},$or:[{idLol:'asd'}]}]};
+
+      for (var i = 0;i<int.length; i++) {
+        noti.$and[0].$or.push({idCur:int[i].idCur});
+      }
+    //console.log(noti.$and[0].$or);
+    
+    return {
+      find(){
+        return NOTIFICACIONES.find(noti);
+      },
+      children:[
+        {
+          find(notif){
+            return Meteor.users.find({_id:notif.idUs},{fields:{profile:1,username:1}});
+          }          
+        },
+        {
+          find(notif){
+            return CURSOS.find({_id:notif.idCur});
+          }
+        },
+        {
+          find(notif){
+            return PREGUNTAS.find({_id:notif.idPre});
+          }
+        },
+
+      ]
+    }
+  });
+  //probar con transform nvista y notifs
+  Meteor.publish("getNotVistas",function(){
+    return NVISTAS.find({idUs:this.userId});
   });
   
 });

@@ -21,7 +21,7 @@ Template.material.helpers({
 Template.material.events({
 	'submit #addmaterial': function (e) {
 		e.preventDefault();
-		var idCur = FlowRouter.getQueryParam('idCur');
+		var idCur = FlowRouter.getQueryParam('cur');
 		var obj = {
 			tema: e.target.tema.value,
 			descripcion: e.target.descripcion.value,
@@ -52,7 +52,7 @@ Template.itemMaterial.events({
 	},
 	'click .verchat': function () {
         //alert('verchat');
-        if ($('#asklayout').css('display')=='block') {
+        /*if ($('#asklayout').css('display')=='block') {
         	FlowRouter.setQueryParams({idMat:this._id});
         	nameChat.set(this.tema);
         	//onsole.log(nameChat);
@@ -66,7 +66,13 @@ Template.itemMaterial.events({
 	        	$('#asklayout').slideDown('slow');
 	        });
         }
-        return false;
+        return false;*/
+    },
+    'click .detmaterial': function () {
+    	//console.log(this);
+    	var own = FlowRouter.getQueryParam('own');
+    	var cur = FlowRouter.getQueryParam('cur');
+    	FlowRouter.go('/det_material',1,{idMat:this._id,cur:cur,own:own});
     },
     
 	'submit .editarmaterial': function (e) {

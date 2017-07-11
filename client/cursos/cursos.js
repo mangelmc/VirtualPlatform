@@ -10,7 +10,7 @@ Template.cursos.helpers({
         return FlowRouter.subsReady("getCursos");
     },
     listCursos : function(){
-        return CURSOS.find();
+        return CURSOS.find().fetch();
     },
     listMiCursos : function(){
         var user = INTEGRANTES.find({idUs:Meteor.userId()}).fetch();
@@ -62,7 +62,7 @@ Template.itemCurso.helpers({
 Template.itemCurso.events({
     'click .curso': function (e) {
         //console.log(this);        
-        FlowRouter.go('/curso',1,{idCur:this._id,idOwn:this.owner});
+        FlowRouter.go('/curso',1,{cur:this._id,own:this.owner});
 
     },
     'click .tomarc': function(e){
@@ -89,13 +89,14 @@ Template.itemCurso.events({
 
 });
 Template.curso.onCreated(function(){
-    var idCur = FlowRouter.getQueryParam('idCur');
+    var idCur = FlowRouter.getQueryParam('cur');
 
     //console.log(idCur);
 })
 Template.curso.helpers({
     getCurso: function () {
-        return CURSOS.find();
+        var idCur = FlowRouter.getQueryParam('cur');
+        return CURSOS.find({_id:idCur});
     }
 });
 Template.curso.events({

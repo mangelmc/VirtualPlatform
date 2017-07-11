@@ -46,3 +46,19 @@ src: local('Material Icons'), local('MaterialIcons-Regular'), url(./2fcrYFNaTjcS
   /*opacity:1;*/
   box-shadow:0px 3px 2px #333;
 }
+.listanot{
+  padding: 2%;
+  margin : 1%;
+  background-color: #c5cae9;
+
+}
+.listanot:hover{
+  background-color:#5c6bc0;
+  color:white;
+  cursor: pointer;
+}
+.visto i:hover{
+  border-radius: 25%;
+  color: blue;
+  background-color:#0d47a1;
+}

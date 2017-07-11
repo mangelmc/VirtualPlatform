@@ -1,5 +1,5 @@
 <template name="preguntas">
-<div class="" style="border: solid 1px gray ; padding: 2%;">
+<div class="z-depth-4 deep-orange lighten-5" style=" padding: 2%;">
 	<h5 class="center">Consultas</h5>
 
 	<form action="" method="POST" id="preguntar">
@@ -16,17 +16,21 @@
 		<button type="button" class="mejores obtn waves-effect waves-light btn-flat">Mejores</button>
 		<button type="button" class="nuevos btn waves-effect waves-light btn-flat">Nuevos</button>
 		<button type="button" class="noresueltos btn waves-effect waves-light btn-flat">No Resueltos</button>
-	</div>	
+	</div>
+	
 	{{#each listPreguntas}}
+		
 		{{> itemPreguntas username=userPreg.username texto=texto puntos=puntos idCur=idCur idUs=idUs _id=_id}}
+		
 	{{else}}
 		<p>NO hay preguntas del Curso</p>
 	{{/each}}
+	
 </div>	
 </template>
 
 <template name="itemPreguntas">
-<div class="yellow lighten-4" style="border: solid 1px grey ;padding: 2%;margin-top: 2px;">
+<div class="z-depth-1 red lighten-4 " style="padding: 2%;margin-top: 2px;">
 	{{#if eliPermiso}}
 		<button type="button" class="elipregunta waves-effect waves-teal btn-flat"><i class="material-icons left">close</i>Eliminar</button>
 	{{/if}}	
@@ -42,14 +46,14 @@
 	</div>
 	<div class="row">
 		<div class="col m6 s12 center">
-			<a href="" class="verrespuestas">Respuestas</a><span> : {{numRespuestas}}</span>
+			<a href="" class="verrespuestas">RESPUESTAS </a><span> : {{numRespuestas}}</span>
 		</div>
 		<div class="col m6 s12 center">
 			<span>Puntaje : {{puntos}}</span>
 		</div>
 	</div>
 	<!-- Xontenedor de las respuestas-->
-	<div class="row respuestas" id="{{_id}}" style="border: solid 1px grey ;display: none;max-height: 400px;overflow:auto;">
+	<div class="row respuestas teal lighten-3" id="{{_id}}" style="display: none;max-height: 400px;overflow-y:auto;">
 		<div class="" style="padding : 2%;">
 			<form action="" method="POST" id="" class="responder">
 			<div class="input-field"> 
@@ -81,7 +85,7 @@
 <template name="respuesta">
 	{{#if respYo}}
 	<div class="col m10 offset-m2 s12">
-		<div class="card-panel teal white-text">
+		<div class="card-panel blue darken-1 white-text">
 			<a href="" class="elirespuesta"><span class="right"><i class="material-icons white-text">close</i></span></a>
 			<span class="">{{username}} > {{texto}}</span>
 		</div>
@@ -89,7 +93,7 @@
 	</div>	
 	{{else}}
 	<div class="col m11 s12">
-		<div class="card-panel red">
+		<div class="card-panel green darken-3">
 			<a href=""><span class="right puntrespuesta"><i class="material-icons white-text">grade</i></span></a>
 			<span class="white-text">{{username}} > {{texto}}</span>
 			{{#if isInRole 'admin,easier'}}

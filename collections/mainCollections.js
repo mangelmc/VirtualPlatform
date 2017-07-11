@@ -103,3 +103,40 @@ var respuestasSchema =new SimpleSchema({
     
 });
 RESPUESTAS.attachSchema(respuestasSchema);
+
+NOTIFICACIONES = new Mongo.Collection('notificaciones');
+
+var notificacionesSchema =new SimpleSchema({
+    aviso : {
+        type:String,
+    },
+    idUs : {
+        type : String
+    },
+    idPre: {
+        type : String
+    },
+    idCur : {
+        type : String
+    }
+    
+});
+NOTIFICACIONES.attachSchema(notificacionesSchema);
+
+NVISTAS = new Mongo.Collection('nvistas');
+
+var nvistasSchema =new SimpleSchema({
+    idNot : {
+        type:String,
+    },
+    idUs : {
+        type : String
+    },
+    visto: {
+        type : Boolean,         
+    }
+    
+});
+NVISTAS.attachSchema(nvistasSchema);
+
+

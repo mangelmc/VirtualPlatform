@@ -29,13 +29,15 @@
 	    	
     	</div>
     {{/if}}
-        <div class="row">
+        <div class="row " >
         	<h3 class="center-align">TODOS LOS CURSOS</h3>
         	{{#if readyCursos}}
 	        	{{#each listCursos}}
+	        	
 	        		{{> itemCurso}}
+
 	        	{{else}}
-	        	<div class="row container">
+	        	<div class="row container" style="height: 100%">
 	    		    	<div class="col s12 m6">
 	    		    		<div class="card blue-grey darken-1">
 	    		    			<div class="card-content white-text">
@@ -65,9 +67,9 @@
 
 </template>
 <template name="itemCurso">
-	
-	<div class=" col s12 m4 l4">
-		<div >
+
+	<div class="col s12 m4 l4" style="border: solid 1px black">
+		
 		<div id="" class="cursos box-icon">
         	<span><img class="foto responsive-img" src="/image/laravel.png" style="max-height: 220px"></span>
         </div>
@@ -86,10 +88,10 @@
 	            {{#if ifMiembro}}
 	            <button type="button" class="btn curso" >VER CURSO</button> <br><br>  
 	            {{else}}
-	            <button type="button" class="btn tomarc" >Tomar este curso</button>
+	            <button type="button" class="btn tomarc" >Tomar curso</button>
 	            {{/if}}
             {{/if}}
-        </div></div>
+        </div>
 	</div>
 
 </template>
@@ -99,14 +101,11 @@
 	{{#each getCurso}}
 		<h3 class="center">{{titulo}}</h3>
 	{{/each}}
-	<div class="col m6 s12">
+	<div class="col m6 s12 ">
 		{{> material}}
 	</div>
-	<div class="col m6 s12" id="asklayout">		
+	<div class="col m6 s12" id="asklayout" style="max-height: 550px; overflow-y: auto">		
 		{{> preguntas}}
-	</div>
-	<div class="col m6 s12" id="chatlayout" style="display: none;">	
-		{{> chat}}
 	</div>
 </div>
 </template>

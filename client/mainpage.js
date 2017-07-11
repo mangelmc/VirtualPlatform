@@ -1,3 +1,6 @@
+Template.mainpage.onCreated(function(){
+	$('.tooltipped').tooltip({delay: 50});
+});
 Template.mainpage.onRendered(function() {
 	$('.button-collapse').sideNav();
 	$('.dropdown-button').dropdown({
@@ -12,17 +15,55 @@ Template.mainpage.onRendered(function() {
     });
     //$(".dropdown-button").dropdown();
 	$('#modal1').modal();
+	$('.tooltipped').tooltip({delay: 50});
+	
 	//$(".panelForm").css("opacity",0);
-
+	
 });
 Template.mainpage.helpers({
-	username : function(){
-		return Accounts.user().username;
+	contNot : function(){
+		var vistas = NVISTAS.find({visto:false}).fetch();
+		var noti = {$or:[{_id:'123'}]};
+			
+		for (var i = 0; i < vistas.length; i++) {
+			noti.$or.push({_id:vistas[i].idNot});
+		}
+		//console.log(noti);
+		return NOTIFICACIONES.find(noti).fetch().length;
+	},
+	listanoti : function(){
+		var vistas = NVISTAS.find({visto:false}).fetch();
+		var noti = {$or:[{_id:'123'}]};
+			
+		for (var i = 0; i < vistas.length; i++) {
+			noti.$or.push({_id:vistas[i].idNot});
+		}
+		//console.log(noti);
+		return NOTIFICACIONES.find().fetch().reverse();
+	},
+	nCurso: function(){
+		return CURSOS.findOne({_id:this.idCur});
+	},
+	nUser : function(){
+		return Meteor.users.findOne({_id:this.idUs});
+	},
+	nPreg : function(){
+		
+		return PREGUNTAS.findOne({_id:this.idPre});
+	},
+	notiVisto:function(){
+		//console.log(this);
+		var verif = NVISTAS.find({idUs:Meteor.userId(),idNot:this._id,visto:false}).fetch().length;
+		//console.log(verif);
+		if (verif>0) {
+			return true;
+		}
+		return false;
 	}
 });
 
 
-Template.mainpage.events({
+Template.mainpage.events({	
 	"click #login" : function(){
 		//$(".panelForm").css("opacity",1);
 		$(".panelForm").fadeIn('slow');
@@ -39,6 +80,26 @@ Template.mainpage.events({
 		setTimeout(function(){
 			$(".panelLogout").fadeOut('slow');
 		},5000);
+	},
+	'click .verlistanoti': function () {
+		$('.listanoti').slideToggle('slow');
+	},
+	'click .irnoti': function () {
+		//console.log(this);
+		var cur = this.idCur;
+		var pre = this.idPre;
+		Meteor.call('getOwn', cur, function (error, result) {
+			if (result) {
+				FlowRouter.go('/curso',1,{cur:cur,own:result});
+			}
+		});
+		//$('#'+pre).click(); mandar desde onrendered pos y slide
+		Meteor.call('checkVisto', this._id);
+		$('.listanoti').slideUp('slow');
+		//console.log(this._id);
+	},
+	'click .visto': function () {
+		Meteor.call('checkVisto', this._id);
 	}
 });
 Template.welcome.events({

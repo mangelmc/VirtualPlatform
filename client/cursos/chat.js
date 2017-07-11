@@ -1,8 +1,11 @@
+Template.chat.onRendered(function(){
+
+})
 Template.chat.events({
-	'click #closechat': function () {
+	/*'click #closechat': function () {
 		$('#chatlayout').slideToggle('slow');
 		$('#asklayout').slideToggle('slow');
-	},
+	},*/
 	'submit #chatear': function (e) {
 		e.preventDefault();
 		obj = {
@@ -13,6 +16,19 @@ Template.chat.events({
 		//console.log(obj);
 		Meteor.call('insertMensaje', obj);
 		e.target.texto.value='';
+		var alto= $('#listausers').offset().top;
+		
+		$('body').animate({scrollTop: alto}, 1500);
+		$('.msjcont').animate({scrollTop: 0}, 1500);
+
+	},
+	'click #listausers': function (e) {
+		e.preventDefault();
+		
+		$('.listausers').slideToggle('slow');
+		setTimeout(function(){$('.listausers').slideUp('slow');},10000);
+		
+		
 	}
 });
 Template.chat.helpers({
