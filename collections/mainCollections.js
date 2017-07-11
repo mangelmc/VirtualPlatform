@@ -80,8 +80,18 @@ var preguntasSchema =new SimpleSchema({
     idUs : {
         type : String
     },
+    total : {
+        type : Number,
+        optional:true
+    },
+    cantUs : {
+        type : Number,
+        optional : true
+    },
     puntos : {
-        type : Number
+        type : Number,
+        decimal : true,
+        max : 6.00
     }
     
 });
@@ -103,8 +113,18 @@ var respuestasSchema =new SimpleSchema({
     idCur : {
         type : String
     },
+    total : {
+        type : Number,
+        optional:true
+    },
+    cantUs : {
+        type : Number,
+        optional : true
+    },
     puntos : {
-        type : Number
+        type : Number,
+        decimal : true,
+        max : 6.00
     }
     
 });
@@ -171,5 +191,23 @@ var notificacionesrSchema =new SimpleSchema({
     }
 });
 NOTIFICACIONESR.attachSchema(notificacionesrSchema);
+
+PUNTUACION = new Mongo.Collection('puntuacion');
+var puntuacionSchema =new SimpleSchema({
+    
+    idUs : {
+        type : String
+    },
+    idObj: {
+        type : String,        
+    },
+    puntos: {
+        type : Number,         
+    },
+    idCur: {
+        type : String,        
+    }
+});
+PUNTUACION.attachSchema(puntuacionSchema);
 
 

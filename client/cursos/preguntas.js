@@ -10,7 +10,9 @@ Template.preguntas.events({
 			texto : e.target.texto.value, 
 			idCur : FlowRouter.getQueryParam('cur'),
 			idUs : Meteor.user()._id,
-			puntos : 0
+			puntos : 0,
+			total : 0,
+			cantUs : 0
 		}
 		//console.log(obj);
 		Meteor.call('insertPregunta', obj);
@@ -56,12 +58,51 @@ Template.itemPreguntas.events({
 			idCur : FlowRouter.getQueryParam('cur'),
 			idUs : Meteor.user()._id,
 			idPre : this._id,
-			puntos : 0
+			puntos : 0,
+			total : 0,
+			cantUs : 0
 		}
 		//console.log(this.idUs);
 		Meteor.call('insertRespuesta', obj,this.idUs);
 		e.target.texto.value = '';
-	}
+	},
+	'click .puntuarpreg': function (e) {
+		e.preventDefault();
+		id = '#'+this._id+'p';
+		$(id).fadeToggle('slow');
+		setTimeout(function(){
+			$(id).fadeOut('slow');
+		},6000);
+	},
+	'click .puntr': function (e) {
+		
+		var obj ={
+			idUs : Meteor.userId(),
+			idObj : this._id,
+			puntos : parseInt(e.currentTarget.id),
+			idCur : FlowRouter.getQueryParam('cur'),
+		}
+		Meteor.call('puntuar',obj,'preg');
+		$('#'+this._id+'p').fadeOut('slow');
+		//console.log(obj);
+		
+	},
+	'mouseover .puntr' : function (e) {
+		var val = parseInt(e.currentTarget.id);
+		//console.log($('#'+this._id+' .punt'));
+		$('#'+this._id+'p .puntr').each(function(){
+			if ($(this).attr('id')<=val) {
+				$(this).css('background-color', 'green');
+				//reto cambiar el color del grade ;
+			}			
+		});		
+	},
+	'mouseout .puntr' : function (e) {
+		var val = parseInt(e.currentTarget.id);
+		$('#'+this._id+'p .puntr').each(function(){
+			$(this).css('background-color', 'transparent');					
+		});		
+	},
 
 });
 Template.itemPreguntas.helpers({
@@ -85,6 +126,15 @@ Template.itemPreguntas.helpers({
 		return false;
 
 	},
+	puntuado : function(){
+		//var idCur = FlowRouter.getQueryParam('cur'); 
+		var rowpunt = PUNTUACION.find({idUs:Meteor.userId(),idObj:this._id}).fetch();
+		//console.log(rowpunt);
+		if (rowpunt.length>0) {
+			return false;
+		}
+		return true;
+	}
 });
 //--------Funcionalidad template respuesta
 Template.respuesta.helpers({
@@ -94,6 +144,15 @@ Template.respuesta.helpers({
 			return true;
 		}
 		return	false;
+	},
+	Puntuado : function(){
+		//var idCur = FlowRouter.getQueryParam('cur'); 
+		var rowpunt = PUNTUACION.find({idUs:Meteor.userId(),idObj:this._id}).fetch();
+		//console.log(rowpunt);
+		if (rowpunt.length>0) {
+			return false;
+		}
+		return true;
 	}
 });
 Template.respuesta.events({
@@ -102,10 +161,45 @@ Template.respuesta.events({
 		var conf = confirm('esta seguro de eliminar respuesta');
 		if (conf== true) {
 			Meteor.call('eliRespuesta', this._id);
-
 		}
 	},
-	'click .puntrespuesta': function () {
-		alert('En construccion');
-	}
+	'click .puntuarresp': function (e) {
+		e.preventDefault();
+		var id = '#'+this._id+'r';
+		$(id).fadeToggle('slow');
+		setTimeout(function(){
+			$(id).fadeOut('slow');
+		},6000);
+	},
+	'click .punt': function (e,temp) {
+		
+		var obj ={
+			idUs : Meteor.userId(),
+			idObj : this._id,
+			puntos : parseInt(e.currentTarget.id),
+			idCur : FlowRouter.getQueryParam('cur'),
+		}
+		Meteor.call('puntuar',obj,'resp');
+		$('#'+this._id+'r').fadeOut('slow');
+		//console.log(obj);
+		
+	},
+	'mouseover .punt' : function (e) {
+		var val = parseInt(e.currentTarget.id);
+		//console.log($('#'+this._id+' .punt'));
+		$('#'+this._id+'r .punt').each(function(){
+			if ($(this).attr('id')<=val) {
+				$(this).css('background-color', 'grey');
+				//reto cambiar el color del grade ;
+			}			
+		});		
+	},
+	'mouseout .punt' : function (e) {
+		var val = parseInt(e.currentTarget.id);
+		$('#'+this._id+'r .punt').each(function(){
+			$(this).css('background-color', 'transparent');					
+		});		
+	},
+	
+
 });

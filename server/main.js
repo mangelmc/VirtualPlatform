@@ -62,10 +62,17 @@ Meteor.startup(() => {
     },
     eliPregunta : function(id){
       PREGUNTAS.remove({_id : id});
+      var idsresp = RESPUESTAS.find({idPre:id}).fetch();
+      for (var i = 0; i < idsresp.length; i++) {
+        PUNTUACION.remove({idObj:idsresp[i]._id});
+        NOTIFICACIONESR.remove({idRes:idsresp[i]._id});
+      }
       RESPUESTAS.remove({idPre : id });
       var idNot = NOTIFICACIONES.find({idPre:id}).fetch()[0]._id;
       NOTIFICACIONES.remove({idPre:id});
         NVISTAS.remove({idNot:idNot});
+      PUNTUACION.remove({idObj:id});
+
     },
     insertRespuesta : function(obj,idUsP){
       //this,userId  ? Revisar
@@ -82,6 +89,7 @@ Meteor.startup(() => {
     eliRespuesta : function(idResp){
       RESPUESTAS.remove({_id : idResp});
       NOTIFICACIONESR.remove({idRes:idResp});
+      PUNTUACION.remove({idObj:idResp});
     },
     insertMensaje : function(obj){
       MENSAJES.insert(obj);
@@ -107,6 +115,31 @@ Meteor.startup(() => {
 
       Meteor.users.update({_id:this.userId}, {$set:{'profile.online':set}});
       //console.log(own[0].owner);
+    },
+    puntuar : function(obj,tipo){
+      
+      PUNTUACION.insert(obj);
+      var cons = PUNTUACION.find({idObj:obj.idObj}).fetch();
+      var total = 0;
+      var cont = cons.length;
+      for (var i = 0; i < cons.length; i++) {
+        total+=cons[i].puntos;
+      }
+      var points = total/cont;
+      points = points.toFixed(2);
+      console.log(points);
+      if (tipo=='preg') {
+        PREGUNTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}});
+        //console.log(total +'---'+cont );
+      }
+      if (tipo=='resp') {
+        RESPUESTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}},function(err,res){
+          console.log('err : '+err);
+          console.log(res);
+        });
+        console.log(tipo);
+      }
+
     },
   });
 
@@ -248,6 +281,9 @@ Meteor.startup(() => {
           },         
         }]
     }
+  });
+  Meteor.publish("getPuntuacion",function(idCur){
+    return PUNTUACION.find({idCur:idCur});
   });
   
 });
