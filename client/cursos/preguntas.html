@@ -20,7 +20,7 @@
 	
 	{{#each listPreguntas}}
 		
-		{{> itemPreguntas username=userPreg.username texto=texto puntos=puntos idCur=idCur idUs=idUs _id=_id}}
+		{{> itemPreguntas username=userPreg.username texto=texto puntos=puntos total=total cantUs=cantUs idCur=idCur idUs=idUs _id=_id}}
 		
 	{{else}}
 		<p>NO hay preguntas del Curso</p>
@@ -45,12 +45,30 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col m6 s12 center">
+		<div class="col m4 s12 center">
 			<a href="" class="verrespuestas">RESPUESTAS </a><span> : {{numRespuestas}}</span>
 		</div>
-		<div class="col m6 s12 center">
-			<span>Puntaje : {{puntos}}</span>
+		<div class="col m4 s12 center">
+			<span>Puntuado : {{cantUs}}</span>
 		</div>
+		{{#if puntuado}}
+		<div class="col m4 s12 center">
+			<span>Puntaje : {{puntos}}</span><a href="" title="Puntuar" class="puntuarpreg"><span ><i class="material-icons blue-grey-text right">grade</i></span></a>
+			
+		</div>
+		<div class="z-depth-1  right" id="{{_id}}p" style="display: none;border-right: 3px;border-radius: 3px">
+			<a href="" class="puntr" id="1"><span ><i class="material-icons blue-grey-text ">grade</i></span></a>
+			<a href="" class="puntr" id="2"><span ><i class="material-icons blue-grey-text ">grade</i></span></a>
+			<a href="" class="puntr" id="3"><span ><i class="material-icons blue-grey-text ">grade</i></span></a>
+			<a href="" class="puntr" id="4"><span ><i class="material-icons blue-grey-text ">grade</i></span></a>
+			<a href="" class="puntr" id="5"><span ><i class="material-icons blue-grey-text ">grade</i></span></a>
+		</div>
+		{{else}}
+		<div class="col m4 s12 center">
+			<span>Puntaje : {{puntos}}</span ><span title="Ya puntuaste esto"><i class="material-icons blue-grey-text right" >grade</i></span>
+			
+		</div>
+		{{/if}}
 	</div>
 	<!-- Xontenedor de las respuestas-->
 	<div class="row respuestas teal lighten-3" id="{{_id}}" style="display: none;max-height: 400px;overflow-y:auto;">
@@ -65,7 +83,7 @@
 			</form>
 		</div>	
 		{{#each listRespuestas}}
-			{{> respuesta _id=_id texto=texto idUs=idUs idPre=idPre idCur=idCur username=userResp.username}}
+			{{> respuesta _id=_id texto=texto idUs=idUs idPre=idPre idCur=idCur puntos=puntos username=userResp.username}}
 		{{else}}
 			<div class="row">
 				<div class="col s12 m6">
@@ -83,23 +101,47 @@
 </template>
 
 <template name="respuesta">
-	{{#if respYo}}
+{{#if respYo}}
 	<div class="col m10 offset-m2 s12">
-		<div class="card-panel blue darken-1 white-text">
-			<a href="" class="elirespuesta"><span class="right"><i class="material-icons white-text">close</i></span></a>
-			<span class="">{{username}} > {{texto}}</span>
-		</div>
+		<div class="card-panel blue darken-1 white-text">			
 
+			<span class="">{{username}} > {{texto}}</span>
+			<div style="display: block">
+				<a href="" class="elirespuesta"><span class="right"><i class="material-icons white-text">close</i></span></a>			
+				<div class="white-text right" style="padding-top: 3px"><span><b>{{puntos}}</b></span></div>
+				<span class="right row"><i class="material-icons white-text">grade</i></span>
+			</div>
+		</div>
 	</div>	
-	{{else}}
-	<div class="col m11 s12">
-		<div class="card-panel green darken-3">
-			<a href=""><span class="right puntrespuesta"><i class="material-icons white-text">grade</i></span></a>
-			<span class="white-text">{{username}} > {{texto}}</span>
-			{{#if isInRole 'admin,easier'}}
-			<a href="" class="elirespuesta"><span class="right"><i class="material-icons white-text">close</i></span></a>
+{{else}}
+<div class="col m11 s12">
+	<div class="card-panel green darken-3 contp">
+
+		<span class="white-text">{{username}} > {{texto}}</span>
+		
+		<div style="display: block">
+		{{#if isInRole 'admin,easier'}}
+			<a href="" class="elirespuesta"><span class="right row"><i class="material-icons white-text">close</i></span></a>
+		{{/if}}
+		
+		{{#if Puntuado}}
+			<div class="white-text right" style="padding-top: 3px"><span><b>{{puntos}}</b></span></div>
+			<a href="" title="Puntuar" ><span class="right puntuarresp row"><i class="material-icons white-text">grade</i></span></a>
+			<div class=" z-depth-1  right " id="{{_id}}r" style="border-radius: 3px;display: none;">
+				<a href="" class="punt" id="1"><span ><i class="material-icons white-text">grade</i></span></a>
+				<a href="" class="punt" id="2"><span ><i class="material-icons white-text">grade</i></span></a>
+				<a href="" class="punt" id="3"><span ><i class="material-icons white-text">grade</i></span></a>
+				<a href="" class="punt" id="4"><span ><i class="material-icons white-text">grade</i></span></a>
+				<a href="" class="punt" id="5"><span ><i class="material-icons white-text">grade</i></span></a>
+			</div>
+			{{else}}
+				<div class="white-text right" style="padding-top: 3px"><span><b>{{puntos}}</b></span></div>
+				<span class="right row" title="Ya puntuaste esto"><i class="material-icons white-text">grade</i></span>
 			{{/if}}
 		</div>
+
 	</div>
-	{{/if}}
+
+</div>
+{{/if}}
 </template>

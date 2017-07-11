@@ -46,23 +46,57 @@
     
   </nav>
   <div class="row listanoti deep-purple lighten-5 z-depth-4" style="max-height: 250px;max-width: 350px; position: absolute;right : 10%; overflow-y: auto;z-index: 10;border-radius: 2px;display: none;padding:4px">
-    {{#each listanoti}}
-      {{#if notiVisto}}
-        <div class="row {{_id}} listanot" style="background-color: #4a148c;"  >
-          <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
-          <div class="col s2 tooltipped visto" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
-        </div>
+    
+      <div class="col s12" >
+        <ul class="tabs deep-purple lighten-5"  style="overflow-x: hidden;">
+          <li class="tab col s6"><a href="#test1">preguntas</a></li>
+          <li class="tab col s6"><a class="active" href="#test2">respuestas</a></li>
+        </ul>
+      </div>
+      <div id="test1" class="col s12">
+      {{#each listanoti}}
+        {{#if notiVisto}}
+          <div class="row {{_id}} listanot" style="background-color: #4a148c;"  >
+            <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+            <div class="col s2 tooltipped visto" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
+          </div>
+        {{else}}
+          <div class="row {{_id}} listanot" style=""  >
+            <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+          </div>
+        {{/if}}
       {{else}}
-        <div class="row {{_id}} listanot" style=""  >
-          <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
-        </div>
-      {{/if}}
-    {{else}}
+          <div class="row listanot"  >
+            <div class="col s12 " >No hay notificaciones</div>
+                  
+          </div>
+      {{/each}}
+      </div>
+
+
+      <div id="test2" class="col s12">
+      {{#each listaNotiR}}
+        {{#if notirVisto}}
+          <div class="row  listanot" style="background-color: #4a148c;"  >
+              <div class="col s10 irnotir" >{{nUser.username}} respondió : ' {{nRes.texto}}' a tu pregunta : '{{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+              <div class="col s2 tooltipped vistor" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
+          </div>
+        {{else}}
+          <div class="row  listanot"   >
+              <div class="col s10 irnoti" >{{nUser.username}} respondió : ' {{nRes.texto}}' a tu pregunta : '{{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>       
+          </div>
+        {{/if}}
+      {{else}}
         <div class="row listanot"  >
-          <div class="col s12 " >No hay notificaciones</div>
-                
-        </div>
-    {{/each}}
+            <div class="col s12 " >No hay notificaciones</div>
+                  
+          </div>
+      {{/each}}
+      </div>
+      
+  
+
+    
   </div>
 
 <div class="panelLogout scrolltop" style="display: none;">

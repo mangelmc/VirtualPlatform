@@ -13,6 +13,12 @@ var cursosSchema =new SimpleSchema({
     },
     owner : {
         type : String
+    },
+    ini : {
+        type : Date
+    },
+    fin : {
+        type : Date
     }
 });
 CURSOS.attachSchema(cursosSchema);
@@ -74,8 +80,18 @@ var preguntasSchema =new SimpleSchema({
     idUs : {
         type : String
     },
+    total : {
+        type : Number,
+        optional:true
+    },
+    cantUs : {
+        type : Number,
+        optional : true
+    },
     puntos : {
-        type : Number
+        type : Number,
+        decimal : true,
+        max : 6.00
     }
     
 });
@@ -97,8 +113,18 @@ var respuestasSchema =new SimpleSchema({
     idCur : {
         type : String
     },
+    total : {
+        type : Number,
+        optional:true
+    },
+    cantUs : {
+        type : Number,
+        optional : true
+    },
     puntos : {
-        type : Number
+        type : Number,
+        decimal : true,
+        max : 6.00
     }
     
 });
@@ -138,5 +164,50 @@ var nvistasSchema =new SimpleSchema({
     
 });
 NVISTAS.attachSchema(nvistasSchema);
+
+NOTIFICACIONESR = new Mongo.Collection('notificacionesr');
+
+var notificacionesrSchema =new SimpleSchema({
+    
+    idUs : {
+        type : String
+    },
+    idRes: {
+        type : String
+    },
+    idPre: {
+        type : String,
+        optional:true
+    },
+    idCur : {
+        type : String
+    },
+    idDes : {
+        type : String,
+        optional:true
+    },
+    visto: {
+        type : Boolean,         
+    }
+});
+NOTIFICACIONESR.attachSchema(notificacionesrSchema);
+
+PUNTUACION = new Mongo.Collection('puntuacion');
+var puntuacionSchema =new SimpleSchema({
+    
+    idUs : {
+        type : String
+    },
+    idObj: {
+        type : String,        
+    },
+    puntos: {
+        type : Number,         
+    },
+    idCur: {
+        type : String,        
+    }
+});
+PUNTUACION.attachSchema(puntuacionSchema);
 
 

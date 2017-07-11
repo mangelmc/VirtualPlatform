@@ -8,14 +8,15 @@ Meteor.startup(() => {
       Roles.addUsersToRoles(this.userId, [tipo]);
       
     },
-    "insertCurso": function(title,desc){
+    "insertCurso": function(obj){
         if(Meteor.userId()){ 
-          var idUs = this.userId;
-            CURSOS.insert({titulo: title,descripcion:desc,owner:idUs},function(err,res){
+          var idUs=this.userId;
+            CURSOS.insert(obj,function(err,res){
               if (res) {
                 //console.log(res);
                 INTEGRANTES.insert({idUs:idUs,idCur:res});
               }
+              if (err) {console.log(err);}
             });            
         }        
     },
@@ -61,16 +62,34 @@ Meteor.startup(() => {
     },
     eliPregunta : function(id){
       PREGUNTAS.remove({_id : id});
+      var idsresp = RESPUESTAS.find({idPre:id}).fetch();
+      for (var i = 0; i < idsresp.length; i++) {
+        PUNTUACION.remove({idObj:idsresp[i]._id});
+        NOTIFICACIONESR.remove({idRes:idsresp[i]._id});
+      }
       RESPUESTAS.remove({idPre : id });
       var idNot = NOTIFICACIONES.find({idPre:id}).fetch()[0]._id;
       NOTIFICACIONES.remove({idPre:id});
         NVISTAS.remove({idNot:idNot});
+      PUNTUACION.remove({idObj:id});
+
     },
-    insertRespuesta : function(obj){
-      RESPUESTAS.insert(obj);
+    insertRespuesta : function(obj,idUsP){
+      //this,userId  ? Revisar
+      var yoP = this.userId;
+      RESPUESTAS.insert(obj,function(err,res){
+        if (idUsP!=yoP) {
+          //console.log(idUsP+'!='+yoP);
+          NOTIFICACIONESR.insert({
+            idUs:obj.idUs,idRes:res,idPre:obj.idPre,idCur:obj.idCur,idDes:idUsP,visto:false});
+        }
+      });
+
     },
     eliRespuesta : function(idResp){
       RESPUESTAS.remove({_id : idResp});
+      NOTIFICACIONESR.remove({idRes:idResp});
+      PUNTUACION.remove({idObj:idResp});
     },
     insertMensaje : function(obj){
       MENSAJES.insert(obj);
@@ -86,6 +105,41 @@ Meteor.startup(() => {
 
       NVISTAS.update({$and:[{idNot:idNot},{idUs:this.userId}]},{$set:{visto:true}});
       //console.log(own[0].owner);
+    },
+    checkVistoR : function(idNotR){
+
+      NOTIFICACIONESR.update({_id:idNotR},{$set:{visto:true}});
+      //console.log(own[0].owner);
+    },
+    setOnOffLine : function(set){
+
+      Meteor.users.update({_id:this.userId}, {$set:{'profile.online':set}});
+      //console.log(own[0].owner);
+    },
+    puntuar : function(obj,tipo){
+      
+      PUNTUACION.insert(obj);
+      var cons = PUNTUACION.find({idObj:obj.idObj}).fetch();
+      var total = 0;
+      var cont = cons.length;
+      for (var i = 0; i < cons.length; i++) {
+        total+=cons[i].puntos;
+      }
+      var points = total/cont;
+      points = points.toFixed(2);
+      console.log(points);
+      if (tipo=='preg') {
+        PREGUNTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}});
+        //console.log(total +'---'+cont );
+      }
+      if (tipo=='resp') {
+        RESPUESTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}},function(err,res){
+          console.log('err : '+err);
+          console.log(res);
+        });
+        console.log(tipo);
+      }
+
     },
   });
 
@@ -191,6 +245,45 @@ Meteor.startup(() => {
   //probar con transform nvista y notifs
   Meteor.publish("getNotVistas",function(){
     return NVISTAS.find({idUs:this.userId});
+  });
+  
+  Meteor.publishComposite("getUsers",function(idC){
+    //console.log(INTEGRANTES.find({idCur:idC}).fetch());
+    return {
+      find(){
+        return INTEGRANTES.find({idCur:idC});
+
+      },
+      children:[{
+          find(integ){
+            return Meteor.users.find({_id:integ.idUs},{fields:{profile:1,username:1}});
+          }          
+        }]
+    }
+  });
+  Meteor.publishComposite("getnotificacionesr",function(){
+    return {
+      find(){
+        return NOTIFICACIONESR.find({idDes:this.userId});
+      },
+      children:[{
+          find(noti){
+            return Meteor.users.find({_id:noti.idUs},{fields:{profile:1,username:1}});
+          },
+          find(noti){
+            return RESPUESTAS.find({_id:noti.idRes});
+          },
+          find(noti){
+            return PREGUNTAS.find({_id:noti.idPre});
+          },
+          find(noti){
+            return CURSOS.find({_id:noti.idCur});
+          },         
+        }]
+    }
+  });
+  Meteor.publish("getPuntuacion",function(idCur){
+    return PUNTUACION.find({idCur:idCur});
   });
   
 });
