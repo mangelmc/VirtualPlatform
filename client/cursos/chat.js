@@ -1,3 +1,5 @@
+
+var usersOnline = new ReactiveVar(1);
 Template.chat.onRendered(function(){
 
 })
@@ -35,13 +37,26 @@ Template.chat.helpers({
 	listMensajes: function () {
 		return MENSAJES.find({}).fetch().reverse();
 	},
-	namChat : function () {
-		//console.log(nameChat);
-		return nameChat.get();
-	},
 	userMens : function(){
-		return Meteor.users.findOne({_id: this.idUs});;
-	}
+		return Meteor.users.findOne({_id: this.idUs});
+	},
+	usersOnline : function () {
+		
+		//console.log(Meteor.users.find({'profile.online':true}).fetch());
+		return usersOnline.get();
+	},
+	countOnline : function () {
+		var idCur = FlowRouter.getQueryParam('cur');
+		var int = INTEGRANTES.find({idCur:idCur}).fetch();
+		var obj = {};obj.$or=[{p:1}];
+		for (var i = 0; i < int.length; i++) {
+			obj.$or.push({_id:int[i].idUs});
+		}
+		var users = Meteor.users.find({$and:[{'profile.online':true},obj]}).fetch();
+		usersOnline.set(users);
+		//console.log(Meteor.users.find({$and:[{'profile.online':true},obj]}).fetch().length);
+		return users.length;
+	},
 
 });
 Template.mensaje.helpers({

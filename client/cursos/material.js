@@ -3,7 +3,7 @@ import { Template} from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import './material.html';
 var orderMaterial = new ReactiveVar('prioridad');
-nameChat = new ReactiveVar('');
+
 Template.itemMaterial.onRendered(function(){
 	
 	$('.modal').modal();

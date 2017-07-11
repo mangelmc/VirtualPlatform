@@ -1,14 +1,14 @@
 <template name="chat">
 <div class="z-depth-4 teal lighten-5 " style=" padding: 2%;">
-	<h5 class="center">Chat en vivo <a href=""><span id="listausers" style="">10 en linea</span></a></h5>
+	<h5 class="center">Chat en vivo </h5>
+	<a href="" ><span class="teal white-text" id="listausers" style="padding: 6px 10px;border-radius: 2px">{{countOnline}} en linea</span></a>
 	<div class="row listausers deep-purple lighten-5 z-depth-4" style="max-height: 250px; position: absolute;right : 3%; display: none;overflow-y: auto;z-index: 25;border-radius: 2px">
 		<ul>
-        <li class="btn-flat">o<a href="" >Usuario x</a></li><br>
-        <li class="btn-flat"><a href="">Usuario x</a></li><br>
-        <li class="btn-flat">o<a href="" >Usuario x</a></li><br>
-        <li class="btn-flat">o<a href="">Usuario x</a></li><br>
-        <li class="btn-flat">o<a href="" >Usuario x</a></li><br>
-        <li class="btn-flat">o<a href="">Usuario x</a></li><br>
+		{{#each usersOnline}}
+        	<li class="btn-flat"><a href="" >{{username}}</a></li><br>
+        {{else}}
+        	<li class="btn-flat">No hay usuarios en linea</li><br>
+        {{/each}}
       </ul>
 	</div>
 	<form action="" method="POST" id="chatear">
@@ -16,7 +16,7 @@
 			<div class="form-group row" id="">
 				<i class="medium material-icons prefix">chat</i>
 				<input type="text" name="texto" class="form-control" id="chatinput" required>
-				<label class="control-label black-text" for="">Escribe un mensaje</label>
+				<label class=" control-label black-text" for="">Escribe un mensaje</label>
 
 			</div>
 		</div>

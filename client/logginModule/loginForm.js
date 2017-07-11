@@ -17,6 +17,7 @@ Template.loginForm.events({
 			}else{
 				FlowRouter.go('/cursos');
 				$(".panelForm").fadeOut('slow');
+				Meteor.call('setOnOffLine', true);
 			}
 		});
 		//$(".panelForm").css("opacity",0);

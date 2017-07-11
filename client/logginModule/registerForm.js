@@ -20,8 +20,8 @@ Template.registerForm.events({
 				"name" : e.target.name.value,
 				"surname" : e.target.surname.value,
 				"carrera" : e.target.carrera.value,
-				"estado" : "online",
-				"bloqueado" : "no"
+				"online" : true,
+				"bloqueado" : false
 				}
 			};
 			
@@ -30,7 +30,7 @@ Template.registerForm.events({
 					Meteor.loginWithPassword(user.username,user.password);
 					//Roles.setUserRoles(Meteor.user()._id, ['estudiante'], 'user');
 				}else{
-					alert('error en los datos vuelva a intentarlo');
+					alert('error en el envio de datos vuelva a intentarlo');
 					return;
 				}
 								

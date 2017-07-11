@@ -15,30 +15,26 @@ Template.mainpage.onRendered(function() {
     });
     //$(".dropdown-button").dropdown();
 	$('#modal1').modal();
-	$('.tooltipped').tooltip({delay: 50});
-	
+	//$('.tooltipped').tooltip({delay: 50});
+	$('ul.tabs').tabs();
 	//$(".panelForm").css("opacity",0);
 	
 });
 Template.mainpage.helpers({
 	contNot : function(){
 		var vistas = NVISTAS.find({visto:false}).fetch();
-		var noti = {$or:[{_id:'123'}]};
+		var noti = {$or:[{p:'123'}]};
 			
 		for (var i = 0; i < vistas.length; i++) {
 			noti.$or.push({_id:vistas[i].idNot});
 		}
+		var noti = NOTIFICACIONES.find(noti).fetch().length;
+		var notir = NOTIFICACIONESR.find({visto:false}).fetch().length;
 		//console.log(noti);
-		return NOTIFICACIONES.find(noti).fetch().length;
+		return notir+noti;
 	},
 	listanoti : function(){
-		var vistas = NVISTAS.find({visto:false}).fetch();
-		var noti = {$or:[{_id:'123'}]};
-			
-		for (var i = 0; i < vistas.length; i++) {
-			noti.$or.push({_id:vistas[i].idNot});
-		}
-		//console.log(noti);
+		
 		return NOTIFICACIONES.find().fetch().reverse();
 	},
 	nCurso: function(){
@@ -59,7 +55,26 @@ Template.mainpage.helpers({
 			return true;
 		}
 		return false;
-	}
+	},
+	listaNotiR : function(){
+		return NOTIFICACIONESR.find().fetch().reverse();
+	},
+	contNotR : function(){		
+		return NOTIFICACIONESR.find().fetch().length;
+	},
+	nRes : function(){		
+		return RESPUESTAS.findOne({_id:this.idRes});
+	},
+	notirVisto:function(){
+		//console.log(this);
+		var verif = NOTIFICACIONESR.find({_id:this._id,visto:false}).fetch().length;
+		//console.log(verif);
+		if (verif>0) {
+			return true;
+		}
+		return false;
+	},
+	
 });
 
 
@@ -70,7 +85,9 @@ Template.mainpage.events({
 	},
 	"click #logout" : function(e){
 		e.preventDefault();
+		Meteor.call('setOnOffLine', false);
 		Meteor.logout();
+
 		$(".panelLogout").fadeOut('slow');
 		FlowRouter.go('/')
 	},
@@ -100,6 +117,24 @@ Template.mainpage.events({
 	},
 	'click .visto': function () {
 		Meteor.call('checkVisto', this._id);
+	},
+	'click .irnotir': function () {
+		//console.log(this);
+		var cur = this.idCur;
+		var pre = this.idPre;
+		Meteor.call('getOwn', cur, function (error, result) {
+			if (result) {
+				FlowRouter.go('/curso',1,{cur:cur,own:result});
+			}
+		});
+		//$('#'+pre).click(); mandar desde onrendered pos y slide
+		Meteor.call('checkVistoR', this._id);
+		$('.listanoti').slideUp('slow');
+		
+	},
+	'click .vistor': function () {
+		//console.log(this);
+		Meteor.call('checkVistoR', this._id);
 	}
 });
 Template.welcome.events({

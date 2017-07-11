@@ -8,14 +8,15 @@ Meteor.startup(() => {
       Roles.addUsersToRoles(this.userId, [tipo]);
       
     },
-    "insertCurso": function(title,desc){
+    "insertCurso": function(obj){
         if(Meteor.userId()){ 
-          var idUs = this.userId;
-            CURSOS.insert({titulo: title,descripcion:desc,owner:idUs},function(err,res){
+          var idUs=this.userId;
+            CURSOS.insert(obj,function(err,res){
               if (res) {
                 //console.log(res);
                 INTEGRANTES.insert({idUs:idUs,idCur:res});
               }
+              if (err) {console.log(err);}
             });            
         }        
     },
@@ -66,11 +67,21 @@ Meteor.startup(() => {
       NOTIFICACIONES.remove({idPre:id});
         NVISTAS.remove({idNot:idNot});
     },
-    insertRespuesta : function(obj){
-      RESPUESTAS.insert(obj);
+    insertRespuesta : function(obj,idUsP){
+      //this,userId  ? Revisar
+      var yoP = this.userId;
+      RESPUESTAS.insert(obj,function(err,res){
+        if (idUsP!=yoP) {
+          //console.log(idUsP+'!='+yoP);
+          NOTIFICACIONESR.insert({
+            idUs:obj.idUs,idRes:res,idPre:obj.idPre,idCur:obj.idCur,idDes:idUsP,visto:false});
+        }
+      });
+
     },
     eliRespuesta : function(idResp){
       RESPUESTAS.remove({_id : idResp});
+      NOTIFICACIONESR.remove({idRes:idResp});
     },
     insertMensaje : function(obj){
       MENSAJES.insert(obj);
@@ -85,6 +96,16 @@ Meteor.startup(() => {
     checkVisto : function(idNot){
 
       NVISTAS.update({$and:[{idNot:idNot},{idUs:this.userId}]},{$set:{visto:true}});
+      //console.log(own[0].owner);
+    },
+    checkVistoR : function(idNotR){
+
+      NOTIFICACIONESR.update({_id:idNotR},{$set:{visto:true}});
+      //console.log(own[0].owner);
+    },
+    setOnOffLine : function(set){
+
+      Meteor.users.update({_id:this.userId}, {$set:{'profile.online':set}});
       //console.log(own[0].owner);
     },
   });
@@ -191,6 +212,42 @@ Meteor.startup(() => {
   //probar con transform nvista y notifs
   Meteor.publish("getNotVistas",function(){
     return NVISTAS.find({idUs:this.userId});
+  });
+  
+  Meteor.publishComposite("getUsers",function(idC){
+    //console.log(INTEGRANTES.find({idCur:idC}).fetch());
+    return {
+      find(){
+        return INTEGRANTES.find({idCur:idC});
+
+      },
+      children:[{
+          find(integ){
+            return Meteor.users.find({_id:integ.idUs},{fields:{profile:1,username:1}});
+          }          
+        }]
+    }
+  });
+  Meteor.publishComposite("getnotificacionesr",function(){
+    return {
+      find(){
+        return NOTIFICACIONESR.find({idDes:this.userId});
+      },
+      children:[{
+          find(noti){
+            return Meteor.users.find({_id:noti.idUs},{fields:{profile:1,username:1}});
+          },
+          find(noti){
+            return RESPUESTAS.find({_id:noti.idRes});
+          },
+          find(noti){
+            return PREGUNTAS.find({_id:noti.idPre});
+          },
+          find(noti){
+            return CURSOS.find({_id:noti.idCur});
+          },         
+        }]
+    }
   });
   
 });

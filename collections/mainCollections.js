@@ -13,6 +13,12 @@ var cursosSchema =new SimpleSchema({
     },
     owner : {
         type : String
+    },
+    ini : {
+        type : Date
+    },
+    fin : {
+        type : Date
     }
 });
 CURSOS.attachSchema(cursosSchema);
@@ -138,5 +144,32 @@ var nvistasSchema =new SimpleSchema({
     
 });
 NVISTAS.attachSchema(nvistasSchema);
+
+NOTIFICACIONESR = new Mongo.Collection('notificacionesr');
+
+var notificacionesrSchema =new SimpleSchema({
+    
+    idUs : {
+        type : String
+    },
+    idRes: {
+        type : String
+    },
+    idPre: {
+        type : String,
+        optional:true
+    },
+    idCur : {
+        type : String
+    },
+    idDes : {
+        type : String,
+        optional:true
+    },
+    visto: {
+        type : Boolean,         
+    }
+});
+NOTIFICACIONESR.attachSchema(notificacionesrSchema);
 
 

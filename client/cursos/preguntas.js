@@ -58,8 +58,8 @@ Template.itemPreguntas.events({
 			idPre : this._id,
 			puntos : 0
 		}
-		//console.log(obj);
-		Meteor.call('insertRespuesta', obj);
+		//console.log(this.idUs);
+		Meteor.call('insertRespuesta', obj,this.idUs);
 		e.target.texto.value = '';
 	}
 
