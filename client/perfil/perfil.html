@@ -1,0 +1,80 @@
+<template name="perfil">
+<div class="grey lighten-1">
+<div class="row ">
+	<div class="col s12 m8 offset-m2 indigo lighten-3 z-depth-4" >
+		
+		<div class="row card-panel grey lighten-4 z-depth-3" style="border-radius: 3%">
+			
+			<div class="col s12 m12">
+				<ul class="collection with-header indigo-text" style="font-style: bold; font-size: 150%;font-family: sans-serif;border: solid 2px " >
+				
+			        <li class="row collection-header">
+			        	<div class="col s12 m6"><h4>MI PERFIL</h4></div>
+			        	<div class="col s12 m6"><img src="/image/usu1.png" class="responsive-img" style="max-height: 160px"></div>
+			        	
+			        </li>
+			        <li class="row collection-item" >
+				        <div class="col s12 m6 black-text" > Nick  </div>
+				        <div class="col s12 m6 blue-text" > {{user.username}} </div>
+			        </li>
+			        <li class="row collection-item" >
+				        <div class="col s12 m6 black-text" > Nombre  </div>
+				        <div class="col s12 m6 blue-text" > {{user.profile.name}} </div>
+			        </li>
+			        <li class="row collection-item" >
+				        <div class="col s12 m6 black-text" > Apellidos  </div>
+				        <div class="col s12 m6 blue-text" >{{user.profile.surname}}</div>
+			        </li>{{#each user.emails}}
+			        <li class="row collection-item" >
+				        <div class="col s12 m6 black-text align-right" > Correo  : </div>
+				        <div class="col s12 m6 blue-text" >{{address}}</div>
+			        </li>{{/each}}
+			        <li class="row collection-item" >
+				        <div class="col s12 m6 black-text" > Carrera  </div>
+				        <div class="col s12 m6 blue-text" >{{user.profile.carrera}}</div>
+			        </li>
+			    
+			    </ul>
+			
+			</div>
+			<center><button data-target="editperfil" class="waves-effect waves-light btn-flat "><i class="material-icons left">edit</i>Editar Perfil</button></center>
+		</div>
+
+	</div>
+	
+	<!-- Modal Structure -->
+  	<div id="editperfil" class="modal">
+  		<h5 class="center">Edicion del Perfil</h5>
+	    <form action="" method="POST" class="editperfil">
+	    <div class="modal-content">
+	      	<div class="input-field"> 
+				<div class="form-group">
+					<label class="active" for="">Nombre</label>
+					
+					<input type="text" name="name" class="form-control" id="" required value="{{user.profile.name}}">
+				</div>
+			</div>
+			<div class="input-field">
+				<div class="form-group">
+					<label class="active" for="">Apellidos</label>
+					
+					<input type="text" name="surname" class="form-control" id="" required value="{{user.profile.surname}}">
+				</div>
+			</div>
+			<div class="input-field">
+				<div class="form-group">
+					<label class="active" for="">Carrera</label>
+					
+					<input type="text" name="carrera" class="form-control" id="" required value="{{user.profile.carrera}}">
+				</div>
+			</div>
+	    </div>
+	    <div class="modal-footer">			      
+	      <button type="submit" class="btn-flat waves-effect gray-text"><i class="material-icons left gray-text">save</i>Guardar Cambios</button>			      
+	      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat gray-text">Cancelar</a>
+	    </div>
+	    </form>
+  	</div>
+</div>
+</div>
+</template>

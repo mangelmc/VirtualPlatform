@@ -98,6 +98,9 @@ Template.mainpage.events({
 			$(".panelLogout").fadeOut('slow');
 		},5000);
 	},
+	'click #viewperfil': function () {
+		$(".panelLogout").fadeOut('slow');
+	},
 	'click .verlistanoti': function () {
 		$('.listanoti').slideToggle('slow');
 	},

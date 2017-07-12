@@ -6,21 +6,21 @@ Template.loginForm.events({
 	"click #close" : function(e){
 		e.preventDefault();
 		//$(".panelForm").css("opacity",0);
-		$(".panelForm").fadeOut('slow');
+		$(".panelForm").fadeOut('fast');
 	},
 	"submit form" : function(e){
 		Meteor.loginWithPassword(e.target.user.value,e.target.password.value,function(err,result){
 			if (err) {
-				console.log('error : '+err);
-				alert('Usuario o contraseña incorrectos...!');
+				//console.log('error : '+err);
+				alert('"Usuario"/"email"  y/o  contraseña incorrectos...!');
 				
 			}else{
 				FlowRouter.go('/cursos');
-				$(".panelForm").fadeOut('slow');
+				$(".panelForm").fadeOut(1000);
 				Meteor.call('setOnOffLine', true);
 			}
 		});
-		//$(".panelForm").css("opacity",0);
+		
 		e.target.user.value='';e.target.password.value='';
 		
 		return false;

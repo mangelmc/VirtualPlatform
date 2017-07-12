@@ -9,10 +9,12 @@ Template.registerForm.events({
 	"click #close" : function(){
 		//$(".panelForm").css("opacity",0);
 		$(".panelForm").fadeOut('slow');
+		myTemplates.set("loginForm");
 	},
 	"submit form" : function(e){
+		e.preventDefault();
 		
-		var user = {
+	 	var user = {
 			"username" : e.target.username.value,
 			"email" : e.target.email.value,
 			"password" : e.target.password.value,
@@ -25,20 +27,21 @@ Template.registerForm.events({
 				}
 			};
 			
-			Accounts.createUser(user, function(e){
-				if(e == undefined){
-					Meteor.loginWithPassword(user.username,user.password);
-					//Roles.setUserRoles(Meteor.user()._id, ['estudiante'], 'user');
-				}else{
-					alert('error en el envio de datos vuelva a intentarlo');
-					return;
-				}
-								
-			});
-			$(".panelForm").fadeOut('slow');
-			myTemplates.set("loginForm");
-			FlowRouter.go('/');
-
-			return false;
+		Accounts.createUser(user, function(e){
+			if(e == undefined){
+				Meteor.loginWithPassword(user.username,user.password);
+				//Roles.setUserRoles(Meteor.user()._id, ['estudiante'], 'user');
+				$(".panelForm").fadeOut('slow');
+				myTemplates.set("loginForm");
+				FlowRouter.go('/');
+			}else{
+				alert(e.reason);
+				//console.log(e);
+				return;
+			}
+							
+		});
+		
+		
 		}	
 });

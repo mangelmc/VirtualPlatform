@@ -35,19 +35,19 @@ Template.preguntas.helpers({
 	listPreguntas: function () {
 		var idCur = FlowRouter.getQueryParam('cur');
 		if (orderpreg.get()=='masptos') {
-			return	PREGUNTAS.find({idCur:idCur},{$sort:{puntos:-1}});
+			return	PREGUNTAS.find({idCur:idCur},{sort:{puntos:-1}});
 		}
 		if (orderpreg.get()=='nuevos') {
 			return	PREGUNTAS.find({idCur:idCur}).fetch().reverse();
 		}
 		if (orderpreg.get()=='noresueltos') {}
 		if (orderpreg.get()=='masptdos') {
-			return	PREGUNTAS.find({idCur:idCur},{$sort:{cantUs:-1}});
+			return	PREGUNTAS.find({idCur:idCur},{sort:{cantUs:-1}});
 		}		
 		return	PREGUNTAS.find({idCur:idCur}).fetch().reverse();
 	},
 	userPreg :  function () {
-		return	Meteor.users.findOne({_id:this.idUs});
+		return	Meteor.users.findOne({_id:this.idUs});		
 	},
 	
 });
