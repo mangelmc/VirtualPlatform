@@ -2,67 +2,69 @@
 <!--<div class="navbar-fixed"></div>-->
  
   
-  <nav class=" indigo lighten-1" role="navigation">
-    <div class="nav-wrapper container ">
-    <a id="logo-container" href="#" class="brand-logo">LOGO</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/">HOME</a></li>
-         {{#if currentUser}}
-            {{#if isInRole 'admin'}}
-             <li><a href="/usuarios">USUARIOS</a></li>
-            {{/if}}
-            {{#if isInRole 'admin,student,easier'}}
-             <li><a href="/cursos">CURSOS</a></li>
-            <li><a href="" class="white-text verlistanoti"><span><i class="material-icons white-text left">add_alert</i></span>
-            {{#if contNot}}
-            <span class="new badge" data-badge-caption="">{{contNot}}</span>
-            {{/if}}
-            </a>
-            </li>
+<nav class=" indigo lighten-1" role="navigation">
+  <div class="nav-wrapper container ">
+  <a id="logo-container" href="#" class="brand-logo">LOGO</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="/">HOME</a></li>
+       {{#if currentUser}}
+          {{#if isInRole 'admin'}}
+           <li><a href="/usuarios">USUARIOS</a></li>
+          {{/if}}
+          {{#if isInRole 'admin,student,easier'}}
+           <li><a href="/cursos">CURSOS</a></li>
+          <li><a href="" class="white-text verlistanoti"><span><i class="material-icons white-text left">add_alert</i></span>
+          {{#if contNot}}
+          <span class="new badge skyblue" data-badge-caption="">{{contNot}}</span>
+          {{/if}}
+          </a>
+          </li>
 
-            {{/if}}
-            <li><a class='logout' href='' >{{currentUser.username}}</a></li>
-            
-        {{else}}
-                <li><a href="#" id="login">LOGIN</a></li>
-        {{/if}}
+          {{/if}}
+          <li><a class='logout up' href='' >{{currentUser.username}}</a></li>
+          
+      {{else}}
+              <li><a href="#" id="login">LOGIN</a></li>
+      {{/if}}
 
-      </ul>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="/">HOME</a></li>
-         {{#if currentUser}}
-            {{#if isInRole 'admin,student,easier'}}
-             <li><a href="/cursos">CURSOS</a></li>
-             <li><a href="" class="verlistanoti"><i class="material-icons white-text">add_alert</i><span class="new badge">4</span></a></li>
-            {{/if}}
-            <li><a class='logout' href='' >{{currentUser.username}}</a></li>
-            
-        {{else}}
-                <li><a href="#" id="login">LOGIN</a></li>
-        {{/if}}
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons white-text">menu</i></a>  
-    </div>
-    
-  </nav>
+    </ul>
+    <!--   Vista para dispositivos moviles-->
+    <ul id="nav-mobile" class="side-nav">
+      <li><a href="/">HOME</a></li>
+       {{#if currentUser}}
+          {{#if isInRole 'admin,student,easier'}}
+           <li><a href="/cursos">CURSOS</a></li>
+           <li><a href="" class="verlistanoti"><i class="material-icons white-text">add_alert</i><span class="new badge">4</span></a></li>
+          {{/if}}
+          <li><a class='logout' href='' >{{currentUser.username}}</a></li>
+          
+      {{else}}
+              <li><a href="#" id="login">LOGIN</a></li>
+      {{/if}}
+    </ul>
+
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons white-text">menu</i></a>  
+  </div>
+  
+</nav>
   <div class="row listanoti deep-purple lighten-5 z-depth-4" style="max-height: 250px;max-width: 350px; position: absolute;right : 10%; overflow-y: auto;z-index: 10;border-radius: 2px;display: none;padding:4px">
     
-      <div class="col s12" >
+    <div class="col s12" >
         <ul class="tabs deep-purple lighten-5"  style="overflow-x: hidden;">
           <li class="tab col s6"><a href="#test1">preguntas</a></li>
           <li class="tab col s6"><a class="active" href="#test2">respuestas</a></li>
         </ul>
-      </div>
-      <div id="test1" class="col s12">
+    </div>
+    <div id="test1" class="col s12">
       {{#each listanoti}}
         {{#if notiVisto}}
           <div class="row {{_id}} listanot" style="background-color: #4a148c;"  >
-            <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+            <div class="col s10 irnoti" ><b>{{nUser.username}}</b> {{aviso}} : <b>'{{nPreg.texto}}'</b> en el curso : <b>'{{nCurso.titulo}}'</b></div>
             <div class="col s2 tooltipped visto" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
           </div>
         {{else}}
           <div class="row {{_id}} listanot" style=""  >
-            <div class="col s10 irnoti" >{{nUser.username}} {{aviso}} : ' {{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
+            <div class="col s10 irnoti" ><b>{{nUser.username}}</b> {{aviso}} : <b>'{{nPreg.texto}}'</b> en el curso : <b>'{{nCurso.titulo}}'</b></div>
           </div>
         {{/if}}
       {{else}}
@@ -71,38 +73,34 @@
                   
           </div>
       {{/each}}
-      </div>
+    </div>
 
-
-      <div id="test2" class="col s12">
-      {{#each listaNotiR}}
-        {{#if notirVisto}}
-          <div class="row  listanot" style="background-color: #4a148c;"  >
-              <div class="col s10 irnotir" >{{nUser.username}} respondió : ' {{nRes.texto}}' a tu pregunta : '{{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>
-              <div class="col s2 tooltipped vistor" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
-          </div>
-        {{else}}
-          <div class="row  listanot"   >
-              <div class="col s10 irnoti" >{{nUser.username}} respondió : ' {{nRes.texto}}' a tu pregunta : '{{nPreg.texto}}' en el curso : '{{nCurso.titulo}}'</div>       
-          </div>
-        {{/if}}
+    <div id="test2" class="col s12">
+    {{#each listaNotiR}}
+      {{#if notirVisto}}
+        <div class="row  listanot" style="background-color: #4a148c;"  >
+            <div class="col s10 irnotir" ><b>{{nUser.username}}</b> respondió : <b>'{{nRes.texto}}'</b> a tu pregunta : <b>'{{nPreg.texto}}'</b> en el curso : <b>'{{nCurso.titulo}}'</b></div>
+            <div class="col s2 tooltipped vistor" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
+        </div>
       {{else}}
-        <div class="row listanot"  >
-            <div class="col s12 " >No hay notificaciones</div>
-                  
-          </div>
-      {{/each}}
-      </div>
-      
-  
-
+        <div class="row  listanot"   >
+            <div class="col s10 irnoti" ><b>{{nUser.username}}</b> respondió : <b>'{{nRes.texto}}'</b> a tu pregunta : <b>'{{nPreg.texto}}'</b> en el curso : <b>'{{nCurso.titulo}}'</b></div>       
+        </div>
+      {{/if}}
+    {{else}}
+      <div class="row listanot"  >
+          <div class="col s12 " >No hay notificaciones</div>
+                
+        </div>
+    {{/each}}
+    </div>
     
   </div>
 
 <div class="panelLogout scrolltop" style="display: none;">
       <ul>
         <li class="btn-flat"><a href="" id="logout">Cerrar Sesion</a></li><br>
-        <li class="btn-flat" style="width: 100%"><a href="">Algo</a></li>
+        <li class="btn-flat" style="width: 100%"><a href="/perfil" id="viewperfil">mi perfil</a></li>
       </ul>
     </div>
 <div class="row">

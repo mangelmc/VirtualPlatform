@@ -13,9 +13,10 @@
 	</form>
 
 	<div class="center">
-		<button type="button" class="mejores obtn waves-effect waves-light btn-flat">Mejores</button>
+		<button type="button" class="masptos obtn waves-effect waves-light btn-flat">mas puntaje</button>
 		<button type="button" class="nuevos btn waves-effect waves-light btn-flat">Nuevos</button>
-		<button type="button" class="noresueltos btn waves-effect waves-light btn-flat">No Resueltos</button>
+		<button style="display: none;" type="button" class="noresueltos btn waves-effect waves-light btn-flat">No Resueltos</button>
+		<button type="button" class="masptdos btn waves-effect waves-light btn-flat">mas puntuados</button>
 	</div>
 	
 	{{#each listPreguntas}}
@@ -51,6 +52,12 @@
 		<div class="col m4 s12 center">
 			<span>Puntuado : {{cantUs}}</span>
 		</div>
+	{{#if puntYo}}
+		<div class="col m4 s12 center">
+			<span>Puntaje : {{puntos}}</span ><span title="Tu creaste esta pregunta no puedes puntuarla"><i class="material-icons blue-grey-text right" >grade</i></span>
+			
+		</div>
+	{{else}}
 		{{#if puntuado}}
 		<div class="col m4 s12 center">
 			<span>Puntaje : {{puntos}}</span><a href="" title="Puntuar" class="puntuarpreg"><span ><i class="material-icons blue-grey-text right">grade</i></span></a>
@@ -69,6 +76,7 @@
 			
 		</div>
 		{{/if}}
+	{{/if}}
 	</div>
 	<!-- Xontenedor de las respuestas-->
 	<div class="row respuestas teal lighten-3" id="{{_id}}" style="display: none;max-height: 400px;overflow-y:auto;">

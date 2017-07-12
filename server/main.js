@@ -8,6 +8,9 @@ Meteor.startup(() => {
       Roles.addUsersToRoles(this.userId, [tipo]);
       
     },
+    editPerfil : function (obj){
+      Meteor.users.update({_id:this.userId}, {$set:{profile:obj}});
+    },    
     "insertCurso": function(obj){
         if(Meteor.userId()){ 
           var idUs=this.userId;
@@ -83,6 +86,7 @@ Meteor.startup(() => {
           NOTIFICACIONESR.insert({
             idUs:obj.idUs,idRes:res,idPre:obj.idPre,idCur:obj.idCur,idDes:idUsP,visto:false});
         }
+        //Aqui vendria el update a pregunta.respuestas
       });
 
     },
@@ -127,19 +131,13 @@ Meteor.startup(() => {
       }
       var points = total/cont;
       points = points.toFixed(2);
-      console.log(points);
+      //console.log(points);
       if (tipo=='preg') {
         PREGUNTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}});
-        //console.log(total +'---'+cont );
       }
       if (tipo=='resp') {
-        RESPUESTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}},function(err,res){
-          console.log('err : '+err);
-          console.log(res);
-        });
-        console.log(tipo);
-      }
-
+        RESPUESTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}});
+       }
     },
   });
 
@@ -180,10 +178,6 @@ Meteor.startup(() => {
         }]
     }
   });
-  /*
-  Meteor.publish("getRespuestas",function(idC){
-    return RESPUESTAS.find({idCur:idC});
-  });*/
   Meteor.publishComposite("getRespuestas",function(idC){
     return {
       find(){

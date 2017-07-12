@@ -68,6 +68,8 @@ src: local('Material Icons'), local('MaterialIcons-Regular'), url(./2fcrYFNaTjcS
   background-color:#0d47a1;
 }
 .punt:hover{
-  
-  background-color: grey;
+   background-color: grey;
+}
+.up{
+  text-transform: uppercase;
 }

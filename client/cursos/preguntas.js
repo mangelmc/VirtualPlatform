@@ -2,7 +2,7 @@ import { Template} from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import "./preguntas.html" ;
 //-------Funcionalidad plantilla prefuntas
-var orderpreg = ''
+var orderpreg = new ReactiveVar('nuevos');
 Template.preguntas.events({
 	'submit #preguntar': function (e) {
 		e.preventDefault();
@@ -18,23 +18,36 @@ Template.preguntas.events({
 		Meteor.call('insertPregunta', obj);
 		e.target.texto.value='';
 	},
-	'click .mejores': function () {
-		alert('en construccion');
+	'click .masptos': function () {
+		orderpreg.set('masptos');
 	},
 	'click .nuevos': function () {
-		alert('en construccion');	
+		orderpreg.set('nuevos');	
 	},
 	'click .noresueltos': function () {
-		alert('en construccion');
+		orderpreg.set('noresueltos');
+	},
+	'click .masptdos': function () {
+		orderpreg.set('masptdos');
 	}
 });
 Template.preguntas.helpers({
 	listPreguntas: function () {
 		var idCur = FlowRouter.getQueryParam('cur');
+		if (orderpreg.get()=='masptos') {
+			return	PREGUNTAS.find({idCur:idCur},{sort:{puntos:-1}});
+		}
+		if (orderpreg.get()=='nuevos') {
+			return	PREGUNTAS.find({idCur:idCur}).fetch().reverse();
+		}
+		if (orderpreg.get()=='noresueltos') {}
+		if (orderpreg.get()=='masptdos') {
+			return	PREGUNTAS.find({idCur:idCur},{sort:{cantUs:-1}});
+		}		
 		return	PREGUNTAS.find({idCur:idCur}).fetch().reverse();
 	},
 	userPreg :  function () {
-		return	Meteor.users.findOne({_id:this.idUs});
+		return	Meteor.users.findOne({_id:this.idUs});		
 	},
 	
 });
@@ -134,6 +147,13 @@ Template.itemPreguntas.helpers({
 			return false;
 		}
 		return true;
+	},
+	puntYo : function(){
+		//console.log(this.idUs);
+		if (this.idUs == Meteor.userId()) {
+			return true;
+		}
+		return false;
 	}
 });
 //--------Funcionalidad template respuesta
