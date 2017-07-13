@@ -25,6 +25,7 @@ Template.cursos.helpers({
 
         //return CURSOS.find({_id:user.idCur});
     },
+
 });
 
 Template.cursos.events({
@@ -57,6 +58,17 @@ Template.itemCurso.helpers({
         return true;
        }
        return  false;
+    },
+    fecha : function(){
+        var fecha = {ini:this.ini,fin:this.fin}
+        var options ={
+            weekday:'long',year:'numeric',month:'long',day:'numeric'
+        }
+        fecha.ini = fecha.ini.toLocaleDateString('es-ES',options);
+        fecha.fin = fecha.fin.toLocaleDateString('es-ES',options);
+        //var fecha = fecha.toLocaleString();
+        //console.log(fecha);
+        return fecha;
     }
 });
 Template.itemCurso.events({

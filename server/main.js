@@ -4,9 +4,11 @@ Meteor.startup(() => {
   // code to run on server at startup
   //metodos
   Meteor.methods({
-  	"insertRol" : function(tipo){
-      Roles.addUsersToRoles(this.userId, [tipo]);
-      
+  	"checkAdmin" : function(user,email){
+      var admin = Meteor.users.findOne({_id:this.userId,username:'admin','emails.address':'admin@gmail.com'});
+      if (admin!=undefined) {
+        Roles.addUsersToRoles(this.userId, ['admin']);
+      }
     },
     editPerfil : function (obj){
       Meteor.users.update({_id:this.userId}, {$set:{profile:obj}});
@@ -115,9 +117,9 @@ Meteor.startup(() => {
       NOTIFICACIONESR.update({_id:idNotR},{$set:{visto:true}});
       //console.log(own[0].owner);
     },
-    setOnOffLine : function(set){
+    setOnOffLine : function(estado){
 
-      Meteor.users.update({_id:this.userId}, {$set:{'profile.online':set}});
+      Meteor.users.update({_id:this.userId}, {$set:{'profile.online':estado}});
       //console.log(own[0].owner);
     },
     puntuar : function(obj,tipo){
@@ -138,6 +140,15 @@ Meteor.startup(() => {
       if (tipo=='resp') {
         RESPUESTAS.update({_id:obj.idObj}, {$set:{total:total,cantUs:cont,puntos:points}});
        }
+    },
+    //esta esla parte de administracion
+    bloquearUs : function(idUs,estado){
+      Meteor.users.update({_id:idUs}, {$set:{'profile.bloqueado':estado}});
+      //console.log(own[0].owner);
+    },
+    asignarRol : function(R,idUs){
+      Roles.addUsersToRoles(idUs, [R]);
+      
     },
   });
 
@@ -280,4 +291,10 @@ Meteor.startup(() => {
     return PUNTUACION.find({idCur:idCur});
   });
   
+  // Publicaion para ruta usuarios
+  Meteor.publish("getAllUsers",function(){
+    return Accounts.users.find({_id:{$ne:this.userId}});
+  });
+
+
 });

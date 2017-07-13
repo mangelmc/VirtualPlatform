@@ -33,6 +33,8 @@ Template.registerForm.events({
 				//Roles.setUserRoles(Meteor.user()._id, ['estudiante'], 'user');
 				$(".panelForm").fadeOut('slow');
 				myTemplates.set("loginForm");
+				
+				Meteor.call('checkAdmin', 1);
 				FlowRouter.go('/');
 			}else{
 				alert(e.reason);
