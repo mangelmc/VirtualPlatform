@@ -148,8 +148,16 @@ Meteor.startup(() => {
     },
     asignarRol : function(R,idUs){
       Roles.addUsersToRoles(idUs, [R]);
-      
     },
+    checkBan : function(user){
+      var user = Meteor.users.findOne({_id:this.userId,'profile.bloqueado':true});
+      //console.log(user);
+      if (user!=undefined) {
+        return true;
+      }
+      return false;
+    }
+
   });
 
 

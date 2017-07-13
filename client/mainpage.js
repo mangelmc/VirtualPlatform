@@ -140,29 +140,3 @@ Template.mainpage.events({
 		Meteor.call('checkVistoR', this._id);
 	}
 });
-Template.welcome.events({
-	'click button': function (e) {
-		var id = e.target.id;
-		//console.log(id);
-		if (id=='student') {
-			var conf = confirm('Esta seguro de inscribirse como Estudiante')
-			if (conf==true) {
-				Meteor.call('insertRol', id);
-			}
-		}
-		if (id=='easier'||id=='admin') {
-			var verif = prompt("Porfavor introduzca el codigo de acceso...","1234")
-			if (verif=="1234") {
-				Meteor.call('insertRol', id);
-				return true;
-			}
-			if (verif=="4321") {
-				Meteor.call('insertRol', id);
-				return true;
-			}
-			alert('El codigo no es correcto vuelva a intentarlo');
-			
-		}
-		
-	}
-});

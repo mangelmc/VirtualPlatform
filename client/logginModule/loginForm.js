@@ -9,15 +9,27 @@ Template.loginForm.events({
 		$(".panelForm").fadeOut('fast');
 	},
 	"submit form" : function(e){
-		Meteor.loginWithPassword(e.target.user.value,e.target.password.value,function(err,result){
+		var user = e.target.user.value;
+		Meteor.loginWithPassword(user,e.target.password.value,function(err,result){
 			if (err) {
 				//console.log('error : '+err);
 				alert('"Usuario"/"email"  y/o  contraseña incorrectos...!');
 				
 			}else{
-				FlowRouter.go('/cursos');
-				$(".panelForm").fadeOut(1000);
-				Meteor.call('setOnOffLine', true);
+				Meteor.call('checkBan', user, function (error, result) {
+					if (result==true) {
+						alert('Oops...Tu cuenta esta bloqueada temporalmente');
+						Meteor.logout();
+						$(".panelForm").fadeOut(1000);
+					}
+					else{
+						FlowRouter.go('/cursos');
+						$(".panelForm").fadeOut(1000);
+						Meteor.call('setOnOffLine', true);
+					}
+				});
+
+				
 			}
 		});
 		
