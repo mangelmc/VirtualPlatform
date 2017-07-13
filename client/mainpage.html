@@ -79,7 +79,8 @@
     {{#each listaNotiR}}
       {{#if notirVisto}}
         <div class="row  listanot" style="background-color: #4a148c;"  >
-            <div class="col s10 irnotir" ><b>{{nUser.username}}</b> respondió : <b>'{{nRes.texto}}'</b> a tu pregunta : <b>'{{nPreg.texto}}'</b> en el curso : <b>'{{nCurso.titulo}}'</b></div>
+            <div class="col s10 irnotir" ><b>
+            {{#if nUser.username}} {{nUser.username}} {{else}} Admin{{/if}} </b> respondió : <b>'{{nRes.texto}}'</b> a tu pregunta : <b>'{{nPreg.texto}}'</b> en el curso : <b>'{{nCurso.titulo}}'</b></div>
             <div class="col s2 tooltipped vistor" title="Marcar como visto"><i class="material-icons white-text">done</i></div>        
         </div>
       {{else}}
