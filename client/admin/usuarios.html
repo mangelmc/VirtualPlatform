@@ -1,95 +1,107 @@
 <template name="usuarios">
 {{#if isInRole 'admin'}}
-	
-	<div class="row">
-	<h4 class="center">Administracion de usuarios</h4>
-		<div class="col s12 m8 offset-m2">
-		<div style="border: solid 1px gray;">
-		<h5 class="center">Solicitudes Pendientes</h5>
-		<table class="striped bordered highlight responsive-table">
-	        
-	        <thead>
-	          <tr>
-	              <th>Name</th>
-	              <th>Item Name</th>
-	              <th>Item Price</th>
-	              <th>Name</th>
-	              <th>Item Name</th>
-	              <th>Item Price</th>
-	          </tr>
-	        </thead>
-
-	        <tbody>
-	          <tr>
-	            <td>Alvin</td>
-	            <td>Eclair</td>
-	            <td>$0.87</td>
-	            <td><button class="btn skyblue">Facilitador</button></td>
-	            <td><button class="btn green ">Estudiante</button></td>
-	          </tr>
-	          <tr>
-	            <td>Alan</td>
-	            <td>Jellybean</td>
-	            <td>$3.76</td>
-	            <td><button class="btn skyblue">Facilitador</button></td>
-	            <td><button class="btn green ">Estudiante</button></td>
-	          </tr>
-	          <tr>
-	            <td>Jonathan</td>
-	            <td>Lollipop</td>
-	            <td>$7.00</td>
-	            <td><button class="btn skyblue">Facilitador</button></td>
-	            <td><button class="btn green ">Estudiante</button></td>
-	          </tr>
-	        </tbody>
-      	</table>
-      	</div>
-		</div>
-		<div class="col s12 m8 offset-m2">
-		<div style="border: solid 1px gray;">
-		<h5 class="center">Todos los Usuarios</h5>
-		<table class="striped bordered highlight responsive-table">
-	        
-	        <thead>
-	          <tr>
-	              <th>Name</th>
-	              <th>Item Name</th>
-	              <th>Item Price</th>
-	              <th>Name</th>
-	              <th>Item Name</th>
-	              <th>Item Price</th>
-	          </tr>
-	        </thead>
-
-	        <tbody>
-	          <tr>
-	            <td>Alvin</td>
-	            <td>Eclair</td>
-	            <td>$0.87</td>
-	            <td><button class="btn red">Baja</button></td>
-	            
-	          </tr>
-	          <tr>
-	            <td>Alan</td>
-	            <td>Jellybean</td>
-	            <td>$3.76</td>
-	            <td><button class="btn red">Baja</button></td>
-	            
-	          </tr>
-	          <tr>
-	            <td>Jonathan</td>
-	            <td>Lollipop</td>
-	            <td>$7.00</td>
-	            <td><button class="btn red">Baja</button></td>
-	            
-	          </tr>
-	        </tbody>
-      	</table>
-      	</div>
-		</div>
+<div class="row ">
+	<h4 class="center">Administracion de Usuarios</h4>
+	<div class="col s12 m8 offset-m2 ">
+      <ul class="tabs">
+        <li class="tab col s4"><a class="active" href="#pendientes">Solicitudes Pendientes</a></li>
+        <li class="tab col s4"><a href="#activos"> Usuarios Activos</a></li>
+        <li class="tab col s4"><a href="#bloqueados">Usuarios Bloqueados</a></li>
+        
+      </ul>
 	</div>
+    <div id="pendientes" class="col s12 m8 offset-m2 z-depth-3 ">
+		<h5 class="center gray">Solicitudes Pendientes</h5>
+		<table class="striped bordered highlight responsive-table">
+	    
+	        <thead>
+	          <tr>
+	              <th>Nick</th>
+	              <th>Nombre</th>
+	              <th>Apellidos</th>
+	              <th>Carrera</th>
+	              <th>Roles disponibles por asignar</th>
+	          </tr>
+	        </thead>
 
+	        <tbody>
+	        {{#each listaUsEspera}}
+	          <tr>
+	            <td>{{username}}</td>
+	            <td>{{profile.name}}</td>
+	            <td>{{profile.surname}}</td>
+	            <td>{{profile.carrera}}</td>
+	            <td><button class="btn skyblue darrol" id="easier">Facilitador</button></td>
+	            <td><button class="btn green darrol" id="student">Estudiante</button></td>
+	          </tr>
+	        {{else}}
+	        	<p>No hay solicitudes pendientes</p>
+	        {{/each}}
+	        </tbody>
+      	</table>
+      	
+	</div>
+    <div id="activos" class="col s12 m8 offset-m2 z-depth-3 ">
+		<h5 class="center">Usuarios Aceptados</h5>
+		<table class="striped bordered highlight responsive-table">
+	        <thead>
+	          <tr>
+	              <th>Nick</th>
+	              <th>Nombre</th>
+	              <th>Apellidos</th>
+	              <th>Carrera</th>
+	              <th>Rol</th>
+	          </tr>
+	        </thead>
 
+	        <tbody>
+	        {{#each listaUsAceptados}}
+	          <tr>
+	            <td>{{username}}</td>
+	            <td>{{profile.name}}</td>
+	            <td>{{profile.surname}}</td>
+	            <td>{{profile.carrera}}</td>
+	            <td>{{roles}}</td>
+	            <td><button class="btn red darbaja">Baja</button></td>
+	          </tr>
+	        {{else}}
+	        	<p>No hay usuarios Aceptados</p>
+	        {{/each}}
+	        </tbody>
+      	</table>
+      	
+	</div>
+	<div id="bloqueados"  class="col s12 m8 offset-m2 z-depth-3 ">
+		<h5 class="center">Usuarios Bloqueados</h5>
+		<table class="striped bordered highlight responsive-table">
+	        <thead>
+	          <tr>
+	              <th>Nick</th>
+	              <th>Nombre</th>
+	              <th>Apellidos</th>
+	              <th>Carrera</th>
+	              <th>Rol</th>
+	          </tr>
+	        </thead>
+
+	        <tbody>
+	        {{#each listaUsBloqueados}}
+	          <tr>
+	            <td>{{username}}</td>
+	            <td>{{profile.name}}</td>
+	            <td>{{profile.surname}}</td>
+	            <td>{{profile.carrera}}</td>
+	            <td>{{roles}}</td>
+	            <td><button class="btn green daralta">alta</button></td>
+	          </tr>
+	        {{else}}
+	        	<p>No hay usuarios Bloqueados</p>
+	        {{/each}}
+	        </tbody>
+      	</table>
+      	
+	</div>
+</div>
 {{else}}
 	<span>VISTA DISPONIBLE SOLO PARA EL ADMINISTRADOR</span>
 {{/if}}

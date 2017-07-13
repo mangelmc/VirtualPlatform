@@ -109,14 +109,18 @@
 </div>
   
   
-  <div style="min-height: 450px;">
+  <div style="min-height: 450px;" class="indigo lighten-5">
   {{#if currentUser}}
     {{#if isInRole 'admin,easier,student'}}
     {{else}}
       {{> welcome}}
     {{/if}}
   {{/if}} 
-  {{> Template.dynamic template=content}} 
+  {{#if isInRole 'admin,student,easier'}}
+    {{> Template.dynamic template=content}}
+  {{else}}
+    {{>home}}
+  {{/if}}
  </div> 
   <div class="row container">
     
@@ -194,14 +198,12 @@
 <template name ="welcome">
   <div class="row">
     
-    <div class="col s12 m12">
-      <center><h4 class="center">GRACIAS POR REGISTRARSE.....</h4>
-      <h6 class="center">AHORA DEBERA ELEGIR QUE TIPO DE USO LE DARA AL SISTEMA :</h6>
-      <div class="container">
-        <button type="button" id="student" class="btn waves-effect waves-teal btn-flat"><i class="material-icons">settings</i> ESTUDIANTE</button>
-        <button type="button" id="easier" class="btn waves-effect waves-teal btn-flat"><i class="material-icons">settings</i> FACILITADOR</button>
-        <button type="button" id="admin" class="btn waves-effect waves-teal btn-flat"><i class="material-icons">settings</i> ADMINISTRADOR</button>
-      </div></center>
+    
+    <div class="col s12 m6 offset-m3">
+      <div class="card-panel deep-purple  lighten-1">
+        <h4 class="white-text ">GRACIAS POR REGISTRARSE.....</h4>
+        <h5 class="white-text  center">En breve le daremos acceso ......Gracias por esperar....!</h5>
+        </div> 
     </div>
   </div>
 </template>

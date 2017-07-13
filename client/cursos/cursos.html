@@ -49,20 +49,28 @@
 	        	{{/each}}
 	    	{{else}}	
 	    	<div class="row container">
-	    		    	<div class="col s12 m6">
-	    		    		<div class="card blue-grey darken-1">
-	    		    			<div class="card-content white-text">
-	    		    				<span class="white-text">Loading Data .......</span>
-	    		    			</div>	    		    			
-	    		    		</div>
-	    		    	</div>
-	    		    </div>    
+		    	<div class="col s12 m6">
+		    		<div class="card blue-grey darken-1">
+		    			<div class="card-content white-text">
+		    				<span class="white-text">Loading Data .......</span>
+		    			</div>	    		    			
+		    		</div>
+		    	</div>
+	    	</div>    
             {{/if}}
         </div>
     </div>
     
 {{else}}
-	<p>Solo disponible para usuarios registrados.....!</p>
+	<div class="row container">
+    	<div class="col s12 m6">
+    		<div class="card blue-grey darken-1">
+    			<div class="card-content white-text">
+    				<span class="white-text up">Debe registrarse para poder ver esto</span>
+    			</div>	    		    			
+    		</div>
+    	</div>
+	</div> 
 {{/if}}
 
 </template>
@@ -78,8 +86,9 @@
             <div class="">
                 <div class=""> 
                     <p>{{descripcion}}</p>
-                    <p>{{ini}}</p>
-                    <p>{{fin}}</p>
+                    <p>{{fecha.ini}}</p>
+                    <p>{{fecha.fin}}</p>
+
                 </div>
             </div>
             
@@ -99,6 +108,7 @@
 </template>
 
 <template name="curso">
+{{#if currentUser}}
 <div class="row">
 	{{#each getCurso}}
 		<h4 class="center ">{{titulo}}</h4>
@@ -110,6 +120,17 @@
 		{{> preguntas}}
 	</div>
 </div>
+{{else}}
+	<div class="row container">
+    	<div class="col s12 m6">
+    		<div class="card blue-grey darken-1">
+    			<div class="card-content white-text">
+    				<span class="white-text up">Debe registrarse para poder ver esto</span>
+    			</div>	    		    			
+    		</div>
+    	</div>
+	</div> 
+{{/if}}
 </template>
 
 
