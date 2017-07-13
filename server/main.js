@@ -151,7 +151,7 @@ Meteor.startup(() => {
     },
     checkBan : function(user){
       var user = Meteor.users.findOne({_id:this.userId,'profile.bloqueado':true});
-      //console.log(user);
+      console.log(user.username);
       if (user!=undefined) {
         return true;
       }
