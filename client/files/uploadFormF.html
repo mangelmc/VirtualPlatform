@@ -1,0 +1,73 @@
+<template name="uploadFormF">
+<div class="row cyan accent-2 z-depth-4" id="" style="padding: 1%;max-height: 280px;overflow-y: auto">
+  <h6 class="tit center indigo white-text z-depth-2">Archivos del material</h6>
+  <div class="col s12 center" style="padding: 2%;">
+  {{#if isInRole 'admin,easier'}}
+    {{#with currentUpload}}
+      Subiendo <b>{{file.name}}</b>:
+      <span id="progress" class=" skyblue-text">{{progress.get}}%</span>
+    {{else}}
+    	<div class="file-field input-field " style="padding: 1px;margin:1px">
+        <div class="btn" >
+          <span>Subir Archivo</span>
+          <input id="fileInput" type="file">
+        </div>      
+      </div>
+    {{/with}}
+  {{/if}}
+  {{#if galeria}}
+    <button class="btn waves-effect waves-light downloadall"><i class="material-icons right white-text">system_update_alt</i>Descargar todos</button>
+  {{/if}}  
+  </div>
+ 
+
+  <div class="row">
+    <ul class="collection with-header">
+    
+    {{#each listGaleria}}
+      
+      <li class="collection-item">
+        <div>{{file.name}}
+          <a href="{{file.link}}?download=true" download="{{file.name}}" target="_parent" class="download secondary-content " >
+            <i class="material-icons">system_update_alt</i>
+          </a>
+        </div>
+      </li>
+    {{else}}
+      <li class="collection-item">
+        <div>
+          <p>Aun no se ha subido ningun archivo </p>
+        </div>
+      </li>
+    {{/each}}
+    </ul>
+  </div>		
+</div> 
+</template>
+
+    
+
+
+
+
+<template name="uploadedFiles">
+  {{#if uploadedFiles.count}}
+    <ul>
+      {{#each file in uploadedFiles.each}}
+        <li>
+          <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <div>No files uploaded, yet</div>
+  {{/if}}
+</template>
+
+<!--
+Template.uploadedFiles.helpers({
+  uploadedFiles: function () {
+    return Images.find();
+  }
+});
+-->

@@ -73,3 +73,9 @@ src: local('Material Icons'), local('MaterialIcons-Regular'), url(./2fcrYFNaTjcS
 .up{
   text-transform: uppercase;
 }
+.tit{
+  display: block;
+  padding: 8px;
+  color: white;
+  border-radius: 9px;
+}

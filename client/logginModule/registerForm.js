@@ -23,7 +23,8 @@ Template.registerForm.events({
 				"surname" : e.target.surname.value,
 				"carrera" : e.target.carrera.value,
 				"online" : true,
-				"bloqueado" : false
+				"bloqueado" : false,
+				"img":'none'
 				}
 			};
 			

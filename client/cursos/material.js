@@ -25,11 +25,14 @@ Template.material.events({
 		var obj = {
 			tema: e.target.tema.value,
 			descripcion: e.target.descripcion.value,
-			idCur : idCur
+			idCur : idCur,
+			img : idImagen.get()
 		}
 		Meteor.call('insertMaterial', obj);
 		e.target.tema.value='';
 		e.target.descripcion.value='';
+		idImagen.set('none');
+		$('.addmaterial').slideToggle('slow');
 		//console.log(obj);		
 	},
 	'click #orderp': function () {
@@ -40,6 +43,10 @@ Template.material.events({
 		orderMaterial.set('nuevo');
 		console.log(orderMaterial.get())
 	},
+	'click .crearmaterial': function () {
+		$('.addmaterial').slideToggle('slow');
+		//$('.crearmaterial').slideToggle('slow');
+	}
 });
 Template.itemMaterial.events({
 	'click .verarchivos': function () {
@@ -80,7 +87,7 @@ Template.itemMaterial.events({
 		var id = this._id;  
 		obj = {
 			tema: e.target.tema.value,
-			descripcion: e.target.descripcion.value,
+			descripcion: e.target.descripcion.value
 		}
 		Meteor.call('editMaterial', id,obj);
 		$('#'+this._id+'m').modal('close');
@@ -92,4 +99,13 @@ Template.itemMaterial.events({
 		Meteor.call('eliMaterial', this._id);
 		}
 	},  
+});
+Template.itemMaterial.helpers({
+	haveImg: function () {
+		var img = this.img;
+		if (img!='none') {
+			return IMAGES.findOne({_id:img});
+		}
+		return false;
+	}
 });

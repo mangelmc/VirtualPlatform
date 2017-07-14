@@ -1,65 +1,70 @@
 <template name="cursos">
 {{#if currentUser}}
-	<div class="row">
+<div class="row">
+	
 	{{#if isInRole 'easier,admin'}}
+		<div class="row">
 		{{> facilitador}}
+		</div>
     {{/if}}
     {{#if isInRole 'student'}}
-		<div class="row">
-			<div class="s12">
-				<h3 class="center">MIS CURSOS</h3>
-			</div>
-			{{#if readyCursos}}
-		        	{{#each listMiCursos}}
-		        		{{> itemCurso}}
-		        	{{else}}
-		        	<div class="row container">
-	    		    	<div class="col s12 m6">
-	    		    		<center><div class="card blue-grey darken-1">
-	    		    			<div class="card-content white-text">
-	    		    				<span class="white-text">NO HAS TOMADO NINGUN CURSO.... :v</span>
-	    		    			</div>    		    			
-	    		    		</div></center>
-	    		    	</div>
-	    			</div> 
-		        	{{/each}}
-		   	{{else}}
-		   		<p>Loading......</p>
-	    	{{/if}}
-	    	
-    	</div>
-    {{/if}}
-        <div class="row " >
-        	<h3 class="center-align">TODOS LOS CURSOS</h3>
-        	{{#if readyCursos}}
-	        	{{#each listCursos}}
-	        	
+	<div class="row">
+		<div class="s12 tit indigo lighten-2">
+			<h4 class="center ">MIS CURSOS</h4>
+		</div>
+		{{#if readyCursos}}
+	        	{{#each listMiCursos}}
 	        		{{> itemCurso}}
-
 	        	{{else}}
-	        	<div class="row container" style="height: 100%">
-	    		    	<div class="col s12 m6">
-	    		    		<div class="card blue-grey darken-1">
-	    		    			<div class="card-content white-text">
-	    		    				<span class="center">NO HAY CURSOS DISPONIBLES.....</span>
-	    		    			</div>	    		    			
-	    		    		</div>
-	    		    	</div>
-	    		</div> 
+	        	<div class="row container">
+    		    	<div class="col s12 m6 offset-m3">
+    		    		<center><div class="card blue-grey darken-1">
+    		    			<div class="card-content white-text">
+    		    				<span class="white-text">NO HAS TOMADO NINGUN CURSO.... :v</span>
+    		    			</div>    		    			
+    		    		</div></center>
+    		    	</div>
+    			</div> 
 	        	{{/each}}
-	    	{{else}}	
-	    	<div class="row container">
-		    	<div class="col s12 m6">
-		    		<div class="card blue-grey darken-1">
-		    			<div class="card-content white-text">
-		    				<span class="white-text">Loading Data .......</span>
-		    			</div>	    		    			
-		    		</div>
-		    	</div>
-	    	</div>    
-            {{/if}}
-        </div>
+	   	{{else}}
+	   		<p>Loading......</p>
+    	{{/if}}
+    	
+	</div>
+    {{/if}}
+    <div class="row " >
+    	<div class="s12 tit indigo lighten-2">
+    		<h4 class="center">TODOS LOS CURSOS</h4>
+    	</div>
+    	{{#if readyCursos}}
+        	{{#each listCursos}}
+        	
+        		{{> itemCurso}}
+
+        	{{else}}
+        	<div class="row container" style="height: 100%">
+    		    	<div class="col s12 m6">
+    		    		<div class="card blue-grey darken-1">
+    		    			<div class="card-content white-text">
+    		    				<span class="center">NO HAY CURSOS DISPONIBLES.....</span>
+    		    			</div>	    		    			
+    		    		</div>
+    		    	</div>
+    		</div> 
+        	{{/each}}
+    	{{else}}	
+    	<div class="row container">
+	    	<div class="col s12 m6">
+	    		<div class="card blue-grey darken-1">
+	    			<div class="card-content white-text">
+	    				<span class="white-text">Loading Data .......</span>
+	    			</div>	    		    			
+	    		</div>
+	    	</div>
+    	</div>    
+        {{/if}}
     </div>
+</div>
     
 {{else}}
 	<div class="row container">
@@ -79,7 +84,11 @@
 	<div class="col s12 m4 l4" style="border: solid 1px black">
 		
 		<div id="" class="cursos box-icon">
-        	<span><img class="foto responsive-img" src="/image/laravel.png" style="max-height: 220px"></span>
+			{{#if haveImg}}
+			<img class="foto responsive-img" src="{{haveImg.link}}" style="max-height: 220px">
+			{{else}}
+        	<img class="foto responsive-img" src="/image/empresa.jpg" style="max-height: 220px">
+        	{{/if}}
         </div>
         <div class="info">
             <h4 class="text-center">{{titulo}}</h4>
@@ -111,12 +120,12 @@
 {{#if currentUser}}
 <div class="row">
 	{{#each getCurso}}
-		<h4 class="center ">{{titulo}}</h4>
+		<h5 class="center tit deep-purple lighten-2 z-depth-4">Curso : {{titulo}}</h5>
 	{{/each}}
-	<div class="col m6 s12 ">
+	<div class="col m6 s12 " style="max-height: 550px; overflow-y: auto;display: block;" >
 		{{> material}}
 	</div>
-	<div class="col m6 s12" id="asklayout" style="max-height: 550px; overflow-y: auto">		
+	<div class="col m6 s12" id="asklayout" style="max-height: 550px; overflow-y: auto;display: block;">		
 		{{> preguntas}}
 	</div>
 </div>

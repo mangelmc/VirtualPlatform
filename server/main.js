@@ -151,18 +151,37 @@ Meteor.startup(() => {
     },
     checkBan : function(user){
       var user = Meteor.users.findOne({_id:this.userId,'profile.bloqueado':true});
-      console.log(user.username);
+      //console.log(user.username);
       if (user!=undefined) {
         return true;
       }
       return false;
-    }
+    },
+    insertContent: function(obj){
+      CONTENT.insert(obj);
+    },
 
   });
 
 
 
   //publicaciones
+  Meteor.publish("getImages",function(){
+    return IMAGES.find().cursor;
+    });
+  
+  Meteor.publishComposite("getFiles",function(idMat){
+    return {
+      find(){
+        return CONTENT.find({idMat:idMat});
+      },
+      children:[{
+          find(content){
+            return ARCHIVOS.find({_id:content.file}).cursor;
+          }          
+        }]
+    }
+  });
   Meteor.publish('getCursos', function () {
     if (Roles.userIsInRole(this.userId, ['easier'])) {
       return CURSOS.find({owner:this.userId});

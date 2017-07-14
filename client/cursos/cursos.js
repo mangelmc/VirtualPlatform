@@ -22,8 +22,6 @@ Template.cursos.helpers({
         }
         //console.log(row);
         return row;
-
-        //return CURSOS.find({_id:user.idCur});
     },
 
 });
@@ -31,22 +29,8 @@ Template.cursos.helpers({
 Template.cursos.events({
     'click .cursos': function(e){
         e.preventDefault();
-        alert('click');
-        //userId.set(e.target.);
-        //var idUser= e.target.id;
-        //console.log(AMIGOS.find({$and:[{idUser:Meteor.userId()},{aceptado:true}]}).fetch());
-        //console.log(idUser);
-       /* Meteor.call('agregarAmigo', idUser, function(error,result){
-            if (error) {
-                alert(error.msj);
-            }
-            if (result) {
-                alert(result.msj);
-            }
-        });*/
-        //alert("Se envio la solicitud");
+        console.log('click');
     }
-    
 });
 
 
@@ -69,6 +53,13 @@ Template.itemCurso.helpers({
         //var fecha = fecha.toLocaleString();
         //console.log(fecha);
         return fecha;
+    },
+    haveImg: function(){
+        var img = this.img;
+        if (img!='none') {
+            return IMAGES.findOne({_id:img});
+        }
+        return false;
     }
 });
 Template.itemCurso.events({
