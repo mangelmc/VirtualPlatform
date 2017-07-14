@@ -52,6 +52,9 @@ var materialSchema =new SimpleSchema({
     idCur : {
         type : String
     }, 
+    img :  {
+        type : String
+    }, 
 });
 MATERIAL.attachSchema(materialSchema);
 
@@ -231,5 +234,38 @@ IMAGES = new FilesCollection({
     }
   }
 });
+ARCHIVOS = new FilesCollection({
+  collectionName: 'archivos',
+  allowClientCode: false, // Disallow remove files from Client
+  storagePath : '/home/leo/Escritorio/Seminario/archivos',
+  downloadRoute : '/home/leo/Escritorio/Seminario/archivos/downloads',
+  allowClient : false,
+  onBeforeUpload(file) {
+    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
+    if (file.size <= 102485760 && /png|jpg|jpeg|pdf|doc|docx|mp4|ogv|wmv|avi|mpg/i.test(file.extension)) {
+      return true;
+    } else {
+      return 'Solo puedes subir documentos, Imagenes y videos con un peso no mayor a 100MB';
+    }
+  }
+});
+
+CONTENT = new Mongo.Collection('contenido');
+var contenidoSchema =new SimpleSchema({
+    
+    idUs : {
+        type : String
+    },
+    idMat: {
+        type : String,        
+    },
+    idCur : {
+        type : String,        
+    },
+    file: {
+        type : String,        
+    }
+});
+CONTENT.attachSchema(contenidoSchema);
 
 

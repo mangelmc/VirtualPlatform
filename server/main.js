@@ -156,16 +156,32 @@ Meteor.startup(() => {
         return true;
       }
       return false;
-    }
+    },
+    insertContent: function(obj){
+      CONTENT.insert(obj);
+    },
 
   });
 
 
 
   //publicaciones
-  Meteor.publish("getImages",function(idObj){
-    return IMAGES.find({userId:this.userId}).cursor;
+  Meteor.publish("getImages",function(){
+    return IMAGES.find().cursor;
     });
+  
+  Meteor.publishComposite("getFiles",function(idMat){
+    return {
+      find(){
+        return CONTENT.find({idMat:idMat});
+      },
+      children:[{
+          find(content){
+            return ARCHIVOS.find({_id:content.file}).cursor;
+          }          
+        }]
+    }
+  });
   Meteor.publish('getCursos', function () {
     if (Roles.userIsInRole(this.userId, ['easier'])) {
       return CURSOS.find({owner:this.userId});

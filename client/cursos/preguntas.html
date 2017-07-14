@@ -1,6 +1,6 @@
 <template name="preguntas">
 <div class="row z-depth-4 deep-orange lighten-5" style=" padding: 2%;">
-	<h5 class="center">Consultas</h5>
+	<h5 class="center tit teal lighten-1 z-depth-2">Consultas</h5>
 
 	<form action="" method="POST" id="preguntar">
 		<div class="input-field"> 
@@ -21,7 +21,7 @@
 	
 	{{#each listPreguntas}}
 		
-		{{> itemPreguntas username=userPreg.username texto=texto puntos=puntos total=total cantUs=cantUs idCur=idCur idUs=idUs _id=_id}}
+		{{> itemPreguntas username=userPreg.username texto=texto puntos=puntos total=total cantUs=cantUs idCur=idCur idUs=idUs _id=_id img=userPreg.profile.img}}
 		
 	{{else}}
 		<p>NO hay preguntas del Curso</p>
@@ -40,8 +40,12 @@
 				<h5 class="green-text ">{{username}} : </h5>	
 				<h5 class="green-text darken-3">{{texto}}</h5>		
 		</div>
-		<div class="col s12 m3 l4 center red" style="padding-top: 2%;">				
-			<img src="./image/usu.png" class="responsive-img white-text" alt="Avatar Image" style="max-height: 90px">
+		<div class="col s12 m3 l4 center red accent-2 white-text z-depth-1" style="padding-top: 2%;border-radius: 3px">			
+			{{#if haveImg}}	
+				<img src="{{haveImg.link}}" class="responsive-img white-text" alt="{{username}}" style="max-height: 80px">
+			{{else}}
+				<img src="./image/usu.png" class="responsive-img white-text" alt="{{username}}" style="max-height: 80px">
+			{{/if}}
 			<div class="center" ><span>{{username}}</span></div>				
 		</div>
 	</div>

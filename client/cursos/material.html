@@ -1,10 +1,11 @@
 <template name="material">
 {{#if currentUser}}
-<div class="" style="border: solid 1px grey ;padding: 2%;">	
+<div class="row blue lighten-4 z-depth-3" style="padding: 2%;max-height: ">	
 	{{#if isInRole 'admin,easier'}}
-	<div class="row deep-purple lighten-5" style="padding: 1%">
-		<form action="" method="POST" id="addmaterial">
-			<h5 class="center grey-text">Agregar Material</h5>
+		<button class="waves-effect waves-teal btn crearmaterial"><i class="material-icons left white-text">add</i>Agregar material</button>
+	<div class="row deep-purple lighten-5 addmaterial" style="padding: 1%;display: none;">
+		<form action="" method="POST" id="addmaterial" >
+			<!--<h5 class="center grey-text">Agregar Material</h5>-->
 			<div class="input-field"> 
 				<div class="form-group">
 					<label class="control-label" for="">Tema</label>
@@ -19,7 +20,8 @@
 					<input type="text" name="descripcion" class="form-control" id="" required>
 				</div>
 			</div>
-			<center><button type="submit" class="btn"><i class="material-icons left white-text">add</i>AGREGAR NUEVO</button></center><br>
+			{{> uploadFormI}}
+			<center><button type="submit" class="btn">AGREGAR NUEVO</button></center><br>
 		</form>
 	</div>
 	{{/if}}
@@ -57,7 +59,7 @@
 {{/if}}
 </template>
 <template name="itemMaterial">
-	<div class="row " style="border: solid 1px grey ;padding: 2%;">
+	<div class="row  blue lighten-3 z-depth-3 deep-purple-text darken-3-text" style="padding: 2%;">
 		{{#if isInRole 'admin,easier'}}
 		<div>
 			<!-- Modal Trigger -->
@@ -94,15 +96,17 @@
 		  	</div>
 		</div>
 		{{/if}}
-		<div class="col m4 s12" style="height: 100%">
-			<div class="card-panel teal">
-				<span class="white-text">imagen de descripcion</span>
-			</div>
+		<div class="col m4 s12 center" style="">
+			{{#if haveImg}}
+			<img class="foto responsive-img z-depth-3" src="{{haveImg.link}}" style="max-height: 150px">
+			{{else}}
+        	<img class="foto responsive-img z-depth-3" src="/image/empresa.jpg" style="max-height: 150px">
+        	{{/if}}
 		</div>
 		<div class="col s12 m8">
 			<h5 class="text-center">{{tema}}</h5>
 			<h6 class="text-center">{{descripcion}}</h6>
-			<a href="" class="detmaterial">Ir a Material </a>
+			<a href="" class="blue btn detmaterial">Ir a Material </a>
 		
 		</div>
 	</div>	

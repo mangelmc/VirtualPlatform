@@ -122,6 +122,13 @@ Template.itemPreguntas.helpers({
 	listRespuestas: function () {
 		return RESPUESTAS.find({idPre : this._id}).fetch().reverse();
 	},
+	haveImg: function () {
+		var img = this.img;
+		if (img!='none') {
+			return IMAGES.findOne({_id:img});
+		}
+		return false;
+	},
 	userResp : function () {
 		//console.log(Meteor.users.findOne({_id:this.idUs}).username);
 		return	Meteor.users.findOne({_id:this.idUs});
