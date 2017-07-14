@@ -1,0 +1,31 @@
+<template name="uploadFormI">
+<div class="row">
+  {{#with currentUpload}}
+    Uploading <b>{{file.name}}</b>:
+    <span id="progress" class=" skyblue-text">{{progress.get}}%</span>
+  {{else}}
+  	<div class="col s6 file-field input-field center">
+      <div class="btn">
+        <span>Subir Imagen</span>
+        <input id="fileInput" type="file">
+      </div>      
+    </div>
+    <div class="col s6 file-field input-field center" >
+    	<div class="btn vergaleria">Mi Galeria </div>
+    </div><br><br>
+    <div class="col s12 center" style="display: block;margin-top: 2%;">
+  		<img src="{{currentImage.link}}" class="z-depth-2 responsive-img indigo lighten-2" style="max-height: 100px">
+  	</div>
+  {{/with}}
+</div> 
+<div class="row indigo lighten-4 white-text galeria" style="display: none;">
+	{{#each listGaleria}}
+	<div class="col s12  m4 l3" style="padding:1%">
+		<center><div style="display: block;" class=" indigo lighten-3 z-depth-1" >
+		<a href="" class="check" id="{{_id}}c"><img src="{{itemImg.link}}" class="responsive-img " style="display: inherit; max-height: 50px;padding-top: 3%;padding-bottom: 1%">
+		<i style="display: block;" class="material-icons tiny white-text">highlight</i></a>
+		</div></center>
+	</div>
+	{{/each}}
+</div> 
+</template>

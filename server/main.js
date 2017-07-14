@@ -151,7 +151,7 @@ Meteor.startup(() => {
     },
     checkBan : function(user){
       var user = Meteor.users.findOne({_id:this.userId,'profile.bloqueado':true});
-      console.log(user.username);
+      //console.log(user.username);
       if (user!=undefined) {
         return true;
       }
@@ -163,6 +163,9 @@ Meteor.startup(() => {
 
 
   //publicaciones
+  Meteor.publish("getImages",function(idObj){
+    return IMAGES.find({userId:this.userId}).cursor;
+    });
   Meteor.publish('getCursos', function () {
     if (Roles.userIsInRole(this.userId, ['easier'])) {
       return CURSOS.find({owner:this.userId});

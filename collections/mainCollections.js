@@ -1,5 +1,6 @@
 import {Mongo} from "meteor/mongo";
 
+import { FilesCollection } from 'meteor/ostrio:files';
 
 CURSOS = new Mongo.Collection('cursos');
 
@@ -19,7 +20,11 @@ var cursosSchema =new SimpleSchema({
     },
     fin : {
         type : Date
+    },
+    img : {
+        type : String
     }
+
 });
 CURSOS.attachSchema(cursosSchema);
 INTEGRANTES = new Mongo.Collection('integrantes');
@@ -209,5 +214,22 @@ var puntuacionSchema =new SimpleSchema({
     }
 });
 PUNTUACION.attachSchema(puntuacionSchema);
+
+
+IMAGES = new FilesCollection({
+  collectionName: 'images',
+  allowClientCode: false, // Disallow remove files from Client
+  storagePath : '/home/leo/Escritorio/Seminario/data',
+  downloadRoute : '/home/leo/Escritorio/Seminario/data/downloads',
+  allowClient : false,
+  onBeforeUpload(file) {
+    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
+    if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
+      return true;
+    } else {
+      return 'Please upload image, with size equal or less than 10MB';
+    }
+  }
+});
 
 

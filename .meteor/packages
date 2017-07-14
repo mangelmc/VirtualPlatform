@@ -30,11 +30,8 @@ kadira:flow-router
 kadira:blaze-layout
 
 #cuentas
-accounts-facebook
-accounts-twitter
-accounts-google
 accounts-password
-accounts-ui
+
 
 #colecciones
 aldeed:collection2
@@ -45,3 +42,6 @@ alanning:roles
 #estilos
 fourseven:scss
 materialize:materialize
+ 
+#archivos
+ostrio:files

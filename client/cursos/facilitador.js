@@ -35,10 +35,12 @@ Template.facilitador.events({
             descripcion : e.target.desc.value,
             owner : Meteor.userId(),
             ini : e.target.ini.value,
-            fin : e.target.fin.value
+            fin : e.target.fin.value,
+            img : idImagen.get()
         }
         //console.log(obj);
         Meteor.call('insertCurso',obj,);
+        idImagen.set('none');
     	$('#formcurso').slideUp('slow');
         $('#formcrearc')[0].reset(); 
     },

@@ -5,29 +5,29 @@
 		{{> facilitador}}
     {{/if}}
     {{#if isInRole 'student'}}
-		<div class="row">
-			<div class="s12">
-				<h3 class="center">MIS CURSOS</h3>
-			</div>
-			{{#if readyCursos}}
-		        	{{#each listMiCursos}}
-		        		{{> itemCurso}}
-		        	{{else}}
-		        	<div class="row container">
-	    		    	<div class="col s12 m6">
-	    		    		<center><div class="card blue-grey darken-1">
-	    		    			<div class="card-content white-text">
-	    		    				<span class="white-text">NO HAS TOMADO NINGUN CURSO.... :v</span>
-	    		    			</div>    		    			
-	    		    		</div></center>
-	    		    	</div>
-	    			</div> 
-		        	{{/each}}
-		   	{{else}}
-		   		<p>Loading......</p>
-	    	{{/if}}
-	    	
-    	</div>
+	<div class="row">
+		<div class="s12">
+			<h4 class="center indigo-text">MIS CURSOS</h4>
+		</div>
+		{{#if readyCursos}}
+	        	{{#each listMiCursos}}
+	        		{{> itemCurso}}
+	        	{{else}}
+	        	<div class="row container">
+    		    	<div class="col s12 m6 offset-m3">
+    		    		<center><div class="card blue-grey darken-1">
+    		    			<div class="card-content white-text">
+    		    				<span class="white-text">NO HAS TOMADO NINGUN CURSO.... :v</span>
+    		    			</div>    		    			
+    		    		</div></center>
+    		    	</div>
+    			</div> 
+	        	{{/each}}
+	   	{{else}}
+	   		<p>Loading......</p>
+    	{{/if}}
+    	
+	</div>
     {{/if}}
         <div class="row " >
         	<h3 class="center-align">TODOS LOS CURSOS</h3>
@@ -79,7 +79,11 @@
 	<div class="col s12 m4 l4" style="border: solid 1px black">
 		
 		<div id="" class="cursos box-icon">
-        	<span><img class="foto responsive-img" src="/image/laravel.png" style="max-height: 220px"></span>
+			{{#if haveImg}}
+			<img class="foto responsive-img" src="{{haveImg.link}}" style="max-height: 220px">
+			{{else}}
+        	<img class="foto responsive-img" src="/image/empresa.jpg" style="max-height: 220px">
+        	{{/if}}
         </div>
         <div class="info">
             <h4 class="text-center">{{titulo}}</h4>
